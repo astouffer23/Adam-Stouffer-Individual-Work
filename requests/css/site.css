@@ -1,0 +1,36 @@
+body {
+    background-color: lightslategrey;
+}
+
+h3 {
+    color: white;
+    text-shadow: 0 0 2px black;
+}
+
+#OSSubmit {
+    font-size: 20px;
+}
+
+label {
+    color: whitesmoke;
+    text-shadow: 0 0 4px black;
+    font-size: 18px;
+}
+textarea {
+    resize: none;
+}
+#q1 {
+    box-shadow: 0 0 5px darkslategrey;
+}
+#q2 {
+    box-shadow: 0 0 5px darkslategrey;
+}
+#q3 {
+    box-shadow: 0 0 5px darkslategrey;
+}
+#q4 {
+    box-shadow: 0 0 5px darkslategrey;
+}
+#q5 {
+    box-shadow: 0 0 5px darkslategrey;
+}

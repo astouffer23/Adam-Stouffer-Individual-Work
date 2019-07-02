@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <title>Inside Sales Reports</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/site.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container" style="text-align: center; margin-top: 10px;">
+        <a href="https://weathershieldmfginc.sharepoint.com" target="_blank"><img src="https://www.weathershield.com/WeatherShield/media/general/Images/logo.png" height="35" width="150" /></a>
+    </div>
+    <div class="container">
+        <h3>Submit a Request</h3>
+        <div class="form-group row col-md-5" style="margin:10px">
+            <label for="pick-department" class="control-label col-md-4">
+               Department:
+            </label>
+            <div class="col-md-8">
+                <select id="pick-department" class="btn btn-default form-control" required>
+                    <option value="" label="Required" disabled selected="selected"></option>
+                    <option value="Sales">Sales</option>
+                    <option value="Company Leadership">Company Leadership</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="EnvironmentalSafety">Environmental & Safety</option>
+                    <option value="Finance">Finance</option>
+                    <option value="HumanResources">Human Resources</option>
+                    <option value="InformationTechnology">Information Technology</option>
+                    <option value="Manufacturing">Manufacturing</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Purchasing">Purchasing</option>
+                    <option value="Quality">Quality</option>
+                </select>
+            </div>
+        </div>
+        <div id="Issue" class="form-group row col-md-6" style="margin: 10px;display:none">
+            <label for="pick-area" class="control-label col-md-4">
+                Request Type:
+            </label>
+            <div class="col-md-8">
+                <select id="pick-area" class="btn btn-default form-control" required>
+                    <option value="" label="Required" disabled selected="selected"></option>
+                    <option value="WSOS">OneSource</option>
+                    <option value="BreakFix">Break / Fix</option>
+                    <option value="SoftwareRequest">Software Request</option>
+                    <option value="HardwareRequest">Hardware Request</option>
+                    <option value="TrainingRequest">Training Request</option>
+                    <option value="NewUser">New User</option>
+                </select>
+            </div>
+        </div>
+        <div id="OSDiv" style="display: none">
+            <div id="OneSourceDiv1" class="form-group row col-md-5" style="margin: 10px;display:inherit">
+                <label for="OSChangeType" class="control-label col-md-6">
+                    Change Type:
+                </label>
+                <div class="col-md-6">
+                    <select id="OSChangeType" class="btn btn-default form-control" required>
+                        <option value="" label="Required" disabled selected="selected"></option>
+                        <option value="FixExisting">Fix Existing</option>
+                        <option value="AddQO">Add Question or Option</option>
+                        <option value="RemoveQO">Remove Question or Option</option>
+                        <option value="AddProduct">Add Product</option>
+                        <option value="RemoveProduct">Remove Product</option>
+                    </select>
+                </div>
+            </div>
+            <div id="OneSourceDiv2" class="row col-md-6" style="margin: 10px; display: inherit">
+                <div class="col-md-6">
+                    <label for="c2" class="control-label">
+                        Estimated Cost:
+                    </label>
+                </div>
+                <div class="col-md-6 input-group"style="padding-right: 15px">
+                    <span class="input-group-addon">$</span>
+                    <input type="number" placeholder="Required" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control" id="c2" />
+                </div>
+            </div>
+            <div id="OneSourceDiv3" class="row col-md-5" style="margin: 10px; display: inherit">
+                <div class="col-md-6">
+                    <label for="c3" class="control-label">
+                        Estimated Hours:
+                    </label>
+                </div>
+                <div class="col-md-6 input-group"style="padding-right: 15px">
+                    <input type="number" placeholder="Required" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control" id="c3" />
+                </div>
+            </div>
+            <div id="OneSourceDiv4" class="row col-md-6" style="margin: 10px; display: inherit">
+                <div class="col-md-6">
+                    <label for="c4" class="control-label">
+                        Estimated Finish Date:
+                    </label>
+                </div>
+                <div class="col-md-6 input-group" style="padding-right: 15px">
+                    <input type="date" class="form-control" id="c4" />
+                </div>
+            </div>
+
+            <div id="OneSourceEmail" class="row col-md-5" style="margin: 10px; display: inherit">
+                <div class="col-md-6">
+                    <label for="email" class="control-label">
+                        Email:
+                    </label>
+                </div>
+                <div class="col-md-6 input-group" style="padding-right: 15px">
+                    <input type="email" placeholder="Required" class="form-control" id="email" />
+                </div>
+            </div>
+            <div id="OneSourcePhone" class="row col-md-6" style="margin: 10px; display: inherit">
+                <div class="col-md-6">
+                    <label for="phone" class="control-label">
+                        Phone:
+                    </label>
+                </div>
+                <div class="col-md-6 input-group" style="padding-right: 15px">
+                    <input type="number" placeholder="Required" class="form-control" id="phone" />
+                </div>
+            </div>
+            <div id="OneSourceDiv5" class="col-md-6" style="margin-right: 0">
+                <div class="col-md-6 form-group row">
+                    <label for="q1" class="control-label">
+                        Description of Change:
+                    </label>
+                    <textarea name="q1" id="q1" style="width: 450px;height: 200px"
+                              placeholder="Enter a brief description of what is changing."></textarea>
+                </div>
+            </div>
+            <div id="OneSourceDiv6" class="col-md-5" style="margin-right: 0">
+                <div class="col-md-6 form-group row">
+                    <label for="q2" class="control-label">
+                        Reason for Change:
+                    </label>
+                    <textarea name="q2" id="q2" style="width: 450px;height: 200px" 
+                              placeholder="Enter a brief reason why this change is being requested."></textarea>
+                </div>
+            </div>
+            <div id="OneSourceDiv7" class="col-md-6" style="margin-right: 0">
+                <div class="col-md-6 form-group row">
+                    <label for="q3" class="control-label">
+                        Requirements:
+                    </label>
+                    <textarea name="q3" id="q3" style="width: 450px;height: 200px"
+                              placeholder="What do you need for approval?"></textarea>
+                </div>
+            </div>
+            <div id="OneSourceDiv8" class="col-md-6" style="margin-right: 0">
+                <div class="col-md-6 form-group row">
+                    <label for="q4" class="control-label">
+                        Assumptions / Examples:
+                    </label>
+                    <textarea name="q4" id="q4" style="width: 450px;height: 200px"
+                              placeholder="Any additional information is appreciated, such as order numbers, ticket numbers, or a valid example."></textarea>
+
+                </div>
+            </div>
+            <div id="OneSourceDiv9" class="col-md-6" style="margin-right: 0">
+                <div class="col-md-6 form-group row">
+                    <label for="q5" class="control-label">
+                        User Story / Scenario:
+                    </label>
+                    <textarea name="q5" id="q5" style="width: 1025px;height: 200px" placeholder="Once upon a time, I logged into OneSource....."></textarea>
+                    <br/>
+                    <label style="padding-top: 15px; color: white; font-size: 20px;" for="file" class="btn">Upload Attachment</label>
+                    <input name="File" type="file" id="file" style="color: white; font-size:20px"/>
+                    <div style="color: white; font-size: 18px" >Files over 15Mb in size will not be uploaded.
+                        </div><br/>
+                    <button type="submit" id="OSSubmit" class="btn-primary" style="height: 50px; width: 175px; margin-top: 20px; border-radius: 25px;">Submit</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="BreakFixDiv" class="form-group row col-md-6" style="margin: 10px;display:none">
+            <label for="BreakFixLabel" class="control-label col-md-4">
+                Break Fix:
+            </label>
+            <div class="col-md-8">
+                <select id="BreakFixLabel" class="btn btn-default form-control" required>
+                    <option value="" label="-- Required" disabled selected="selected"></option>
+                    <option value="WSOS">OneSource</option>
+                    <option value="BreakFix">Break / Fix</option>
+                    <option value="SoftwareRequest">Software Request</option>
+                    <option value="HardwareRequest">Hardware Request</option>
+                    <option value="TrainingRequest">Training Request</option>
+                    <option value="NewUser">New User</option>
+                </select>
+            </div>
+        </div>
+        
+
+    </div>
+
+
+
+
+    <script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/showAll.js"></script>
+
+</body>
+</html>
