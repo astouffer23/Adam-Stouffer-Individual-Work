@@ -1,0 +1,12 @@
+C:\Users\28255\Desktop\WS2FD\WS2FD\bin\Debug\WS2FD.exe.config
+C:\Users\28255\Desktop\WS2FD\WS2FD\bin\Debug\WS2FD.exe
+C:\Users\28255\Desktop\WS2FD\WS2FD\bin\Debug\WS2FD.pdb
+C:\Users\28255\Desktop\WS2FD\WS2FD\bin\Debug\IBM.Data.DB2.iSeries.dll
+C:\Users\28255\Desktop\WS2FD\WS2FD\bin\Debug\IBM.Data.DB2.iSeries.xml
+C:\Users\28255\Desktop\WS2FD\WS2FD\obj\Debug\WS2FD.csprojAssemblyReference.cache
+C:\Users\28255\Desktop\WS2FD\WS2FD\obj\Debug\WS2FD.csproj.CoreCompileInputs.cache
+C:\Users\28255\Desktop\WS2FD\WS2FD\obj\Debug\WS2FD.csproj.CopyComplete
+C:\Users\28255\Desktop\WS2FD\WS2FD\obj\Debug\WS2FD.exe
+C:\Users\28255\Desktop\WS2FD\WS2FD\obj\Debug\WS2FD.pdb
+C:\Users\28255\Desktop\WS2FD\WS2FD\bin\Debug\Newtonsoft.Json.dll
+C:\Users\28255\Desktop\WS2FD\WS2FD\bin\Debug\Newtonsoft.Json.xml
