@@ -1,0 +1,196 @@
+body{
+    background-color:#BDBBBB;
+}
+#buttonDivs:hover{
+    font-weight:bold;
+    width:105%;
+    margin-top:20px;
+    height: 95%;
+    background-size: 100%,100%;
+    background-repeat:no-repeat;
+    background-position:center;
+    border-style:ridge;
+    box-shadow:5px 5px 50px green;
+}
+#buttonDivs{
+    font-size:14px;
+    font-weight:bold;
+    width:100%;
+    margin-top:20px;
+    height: 175px;
+    background-size: 100%,100%;
+    background-repeat:no-repeat;
+    background-position:center;
+    border-style:ridge;
+    box-shadow:5px 5px 30px #003A70;
+}
+h1{
+    padding-top:10px;
+}
+#cornerNumber{
+    display:inline-block;
+    border-color: black;
+    border-width: 2px;
+    background-color: rgba(19, 93, 173, 0.555); 
+    border-radius: 25px;  
+    text-align: center; 
+    padding-top:3px; 
+    padding-bottom: 3px; 
+    padding-left:10px; 
+    padding-right:10px
+}
+#hiddenHrTop{
+    height:2px;
+    margin-bottom:-4px;
+    margin-top:-15px; 
+    visibility:hidden;
+}
+#hiddenHrMiddle{
+    height:2px;
+    margin-bottom:-4px;
+    margin-top:-5px; 
+    visibility:hidden;
+}
+#hiddenHrBottom{
+    height:2px;
+    margin-bottom:1px;
+    margin-top:15px; 
+    visibility:hidden;
+}
+#innerTables{
+    border-collapse:separate; 
+    border-spacing:5px; 
+    text-align:center; 
+    width: 100%
+}
+.title{
+    display:block;
+    background-color: rgba(255, 255, 255, 0.7); 
+    border-style: solid;
+    border-radius: 25px;
+    text-align: center; 
+    padding:3px; 
+    margin-left:15%; 
+    margin-right:15%;
+    margin-top:-15px;
+}
+.centerInfo{
+    display:block;
+    background-color: rgba(255, 255, 255, 0.7); 
+    border-radius: 25px;  
+    border-style: solid;
+    text-align: center; 
+    padding:3px; 
+    margin-left:25%; 
+    margin-right:25%
+}
+
+#rightTableLayout{
+    width:100%; 
+    text-align:center; 
+    border-collapse:separate; 
+    border-spacing:0px;
+}
+#rightTrSettings{
+    padding-top: 0px; 
+    padding-bottom: 0px;
+}
+#quantityDescription{
+    background-color: rgba(255, 255, 255, 0.7); 
+    border-radius: 25px;  
+    text-align: center; 
+    border-style: solid;
+    padding-top:.5em;
+    padding-bottom:.5em;
+}
+.quantityAmount{
+    background-color: rgba(255, 255, 255, 0.7); 
+    border-radius: 25px;  
+    text-align: center; 
+    padding:.5em; 
+    border-style: solid;
+}
+.singlebutton1{
+    background-image:url('img/snickers1.jpg');
+}
+.singlebutton1:hover{
+    background-image:url('img/snickers2.jpg');
+}
+.singlebutton2{
+    background-image:url('img/mm1.jpg');
+}
+.singlebutton2:hover{
+    background-image:url('img/mm2.jpg');
+}
+.singlebutton3{
+    background-image:url('img/almond_joy1.jpg');
+}
+.singlebutton3:hover{
+    background-image:url('img/almond_joy2.jpg');
+}
+.singlebutton4{
+    background-image:url('img/milky_way1.jpg');
+}
+.singlebutton4:hover{
+    background-image:url('img/milky_way2.jpg');
+}
+.singlebutton5{
+    background-image:url('img/payday1.jpg');
+}
+.singlebutton5:hover{
+    background-image:url('img/payday2.jpg');
+}
+.singlebutton6{
+    background-image:url('img/reeses1.png');
+}
+.singlebutton6:hover{
+    background-image:url('img/reeses2.jpg');
+}
+.singlebutton7{
+    background-image:url('img/pringles1.jpg');
+}
+.singlebutton7:hover{
+    background-image:url('img/pringles2.png');
+}
+.singlebutton8{
+    background-image:url('img/cheezit1.jpg');
+}
+.singlebutton8:hover{
+    background-image:url('img/cheezit2.jpg');
+}
+.singlebutton9{
+    background-image:url('img/doritos1.jpg');
+}
+.singlebutton9:hover{
+    background-image:url('img/doritos2.png');
+}
+
+.btnStyle {
+    background: #3498db;
+    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+    background-image: -o-linear-gradient(top, #3498db, #2980b9);
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    -webkit-box-shadow: 7px 10px 16px #666666;
+    -moz-box-shadow: 7px 10px 16px #666666;
+    box-shadow: 7px 10px 16px #666666;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 23px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+  }
+  
+  .btnStyle:hover {
+    background: #3cfc43;
+    background-image: -webkit-linear-gradient(top, #3cfc43, #3498db);
+    background-image: -moz-linear-gradient(top, #3cfc43, #3498db);
+    background-image: -ms-linear-gradient(top, #3cfc43, #3498db);
+    background-image: -o-linear-gradient(top, #3cfc43, #3498db);
+    background-image: linear-gradient(to bottom, #3cfc43, #3498db);
+    text-decoration: none;
+  }
