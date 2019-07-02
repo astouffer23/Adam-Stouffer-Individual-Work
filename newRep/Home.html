@@ -1,0 +1,1616 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<style>
+img{
+max-height:40px;
+padding-right: 20px;
+}
+</style>
+
+<head>
+    <title>Reports</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+
+    <div id="wrapper">
+        <ul id="horizontal-list" style="background-color: #2C3E50; margin-bottom: 0">
+            <li><a class="topList" href="http://wsonesource.com" target="_blank">OneSource Prod</a></li>
+            <li><a class="topList" href="http://www.uatwsonesource.com" target="_blank">OneSource UAT</a></li>
+            <li><a class="topList" href="http://weathershield.com" target="_blank">WeatherShield.com</a></li>
+            <li><a class="topList" href="https://weathershieldmfginc.sharepoint.com" target="_blank">Intranet</a></li>
+            <li><a class="topList" href="https://weathershield.freshdesk.com" target="_blank">Freshdesk</a></li>
+            <li><a class="topList" href="https://secure3.entertimeonline.com/ta/6014478.login?rnd=XQE" target="_blank">Kronos</a></li>
+            <li><a class="topList" href="http://wi.tsc.com/Citrix/AccessPlatform/auth/login.aspx" target="_blank">Citrix</a></li>
+            <li><a class="topList" href="http://tsfcprod.tsc.com:88/jde/E1Menu.maf?jdeLoginAction=LOGOUT&RENDER_MAFLET=E1Menu" target="_blank">JDE Prod</a></li>
+            <li><a class="topList" href="https://weathershieldmfginc.crm.dynamics.com/main.aspx" target="_blank">CRM</a></li>
+            <li><a class="topList" href="https://outlook.office365.com" target="_blank">Outlook</a></li>
+            <li></li>
+        </ul>
+        <div id="processDiv" style="min-width: 100%; text-align: center; font-size: 15px; font-weight: bolder" class="alert-success"></div>
+        <div id="errorsDiv" style="min-width: 100%; text-align: center; font-size: 15px; font-weight: bolder" class="alert-danger"></div>
+        <div class="row">
+            <div class="col-md-3">
+                <div style="margin-bottom: 15px; padding-top: 15px">
+                    <a href="#" class="btn btn-primary" style="background-color: #2C3E50; margin-left: 5px" id="menu-toggle"><span id="menu-span" class="glyphicon glyphicon-menu-hamburger"></span></a>
+                    <a href="#" class="btn btn-primary" style="background-color: #2C3E50; margin-left: 5px" id="menu-refresh"><span class="glyphicon glyphicon-refresh"></span></a>
+                    <a style="margin-left: 20px" href="https://weathershieldmfginc.sharepoint.com" target="_blank"><img src="https://www.weathershield.com/WeatherShield/media/general/Images/logo.png" height="35" width="150" /></a>
+                </div>
+
+            </div>
+            <div class="col-md-9" style="padding-top: 15px; padding-left: 30px">
+                <div class="input-group">
+                    <input id="dateValue" type="date" class="form-control" style="width: 170px;" />&nbsp;
+                    <input id="numbersForDate" type="button" class="btn btn-primary" value="Numbers For Date" />&nbsp;
+                    <input id="numbersFromDate" type="button" class="btn btn-primary" value="Numbers From Date" />&nbsp;
+                    <input id="createdOnDate" type="button" class="btn btn-primary" value="Not Working Yet (created on)" />&nbsp;
+                </div>
+            </div>
+        </div>
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav" id="overViewList">
+                <li id="overViewDiv"><a href="#">Overview</a></li>
+            </ul>
+            <ul class="sidebar-nav" id="helpdeskList">
+                <li id="helpDeskDiv"><a href="#">Help Desk</a></li>
+            </ul>
+            <ul class="sidebar-nav" id="devTeamList">
+                <li id="devTeamDiv"><a href="#">Dev Team</a></li>
+            </ul>
+            <ul class="sidebar-nav" id="jumpBackForDate" style="display: none">
+                <li id="jumpBack"><a href="#"><span class="glyphicon glyphicon-menu-left" style="padding-left:25px"></span>Go Back</a></li>
+            </ul>
+            <ul class="sidebar-nav" id="forDateList" style="display: none">
+                <li style="" id="alertsForDate"><a href="#"></a></li>
+                <li style="" id="forDateDiv"><a href="#"></a></li>
+            </ul>
+            <ul class="sidebar-nav" id="jumpBackFromDate" style="display: none">
+                <li onclick="fromJumpBack()" id="jumpBackFrom"><a href="#"><span class="glyphicon glyphicon-menu-left" style="padding-left:25px"></span>Go Back</a></li>
+                <li id="brendaFromList"><a href="#"></a></li>
+                <li id="jakeFromList"><a href="#"></a></li>
+                <li id="tylerFromList"><a href="#"></a></li>
+                <li id="adamFromList"><a href="#"></a></li>
+                <li id="bryanFromList"><a href="#"></a></li>
+            </ul>
+
+            <ul class="sidebar-nav" id="fromDateList" style="display: none">
+                <li id="fromDateDiv"><a href="#"></a></li>
+            </ul>
+        </div>
+        <!-- Page content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12" id="firstWindow">
+                        <div class="col-lg-5">
+                            <div class="outer-container">
+                                <div class="inner-container">
+                                    <div class="element" id="firstWindowNumbers">
+                                        <div id="newNumbers">
+                                            <h3 id="newCounterDisplay"></h3>
+                                            <div id="adamNewCounter" style="display: none;">
+                                            </div>
+                                            <div id="adamNew" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="bryanNewCounter" style="display: none;">
+                                            </div>
+                                            <div id="bryanNew" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="jakeNewCounter" style="display: none;">
+                                            </div>
+                                            <div id="jakeNew" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="brendaNewCounter" style="display: none;">
+                                            </div>
+                                            <div id="brendaNew" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="tylerNewCounter" style="display: none;">
+                                            </div>
+                                            <div id="tylerNew" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="unassignedNewCounter" style="display: none;">
+                                            </div>
+                                            <div id="unassignedNew" style="display: none; padding: 20px">
+                                            </div>
+                                        </div>
+                                        <div id="openNumbers">
+                                            <h3 id="openCounterDisplay"></h3>
+                                            <div id="adamOpenCounter" style="display: none;">
+                                            </div>
+                                            <div id="adamOpen" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="bryanOpenCounter" style="display: none;">
+                                            </div>
+                                            <div id="bryanOpen" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="jakeOpenCounter" style="display: none;">
+                                            </div>
+                                            <div id="jakeOpen" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="brendaOpenCounter" style="display: none;">
+                                            </div>
+                                            <div id="brendaOpen" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="tylerOpenCounter" style="display: none;">
+                                            </div>
+                                            <div id="tylerOpen" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="unassignedOpenCounter" style="display: none;">
+                                            </div>
+                                            <div id="unassignedOpen" style="display: none; padding: 20px">
+                                            </div>
+                                        </div>
+                                        <div id="resolvedNumbers">
+                                            <h3 id="resolvedCounterDisplay"></h3>
+                                            <div id="adamResolvedCounter" style="display: none;">
+                                            </div>
+                                            <div id="adamResolved" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="bryanResolvedCounter" style="display: none;">
+                                            </div>
+                                            <div id="bryanResolved" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="jakeResolvedCounter" style="display: none;">
+                                            </div>
+                                            <div id="jakeResolved" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="brendaResolvedCounter" style="display: none;">
+                                            </div>
+                                            <div id="brendaResolved" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="tylerResolvedCounter" style="display: none;">
+                                            </div>
+                                            <div id="tylerResolved" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="unassignedResolvedCounter" style="display: none;">
+                                            </div>
+                                            <div id="unassignedResolved" style="display: none; padding: 20px">
+                                            </div>
+
+                                        </div>
+
+                                        <div id="pendingNumbers">
+                                            <h3 id="pendingCounterDisplay"></h3>
+
+                                            <div id="adamPendingCounter" style="display: none;">
+                                            </div>
+                                            <div id="adamPending" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="bryanPendingCounter" style="display: none;">
+                                            </div>
+                                            <div id="bryanPending" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="jakePendingCounter" style="display: none;">
+                                            </div>
+                                            <div id="jakePending" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="brendaPendingCounter" style="display: none;">
+                                            </div>
+                                            <div id="brendaPending" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="tylerPendingCounter" style="display: none;">
+                                            </div>
+                                            <div id="tylerPending" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="unassignedPendingCounter" style="display: none;">
+                                            </div>
+                                            <div id="unassignedPending" style="display: none; padding: 20px">
+                                            </div>
+
+                                        </div>
+
+                                        <div id="workingNumbers">
+                                            <h3 id="workingCounterDisplay"></h3>
+                                            <div id="adamWorkingCounter" style="display: none;">
+                                            </div>
+                                            <div id="adamWorking" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="bryanWorkingCounter" style="display: none;">
+                                            </div>
+                                            <div id="bryanWorking" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="jakeWorkingCounter" style="display: none;">
+                                            </div>
+                                            <div id="jakeWorking" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="brendaWorkingCounter" style="display: none;">
+                                            </div>
+                                            <div id="brendaWorking" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="tylerWorkingCounter" style="display: none;">
+                                            </div>
+                                            <div id="tylerWorking" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="unassignedWorkingCounter" style="display: none;">
+                                            </div>
+                                            <div id="unassignedWorking" style="display: none; padding: 20px">
+                                            </div>
+
+                                        </div>
+
+                                        <div id="sentNumbers">
+                                            <h3 id="sentCounterDisplay"></h3>
+                                            <div id="adamSentCounter" style="display: none;">
+                                            </div>
+                                            <div id="adamSent" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="bryanSentCounter" style="display: none;">
+                                            </div>
+                                            <div id="bryanSent" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="jakeSentCounter" style="display: none;">
+                                            </div>
+                                            <div id="jakeSent" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="brendaSentCounter" style="display: none;">
+                                            </div>
+                                            <div id="brendaSent" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="tylerSentCounter" style="display: none;">
+                                            </div>
+                                            <div id="tylerSent" style="display: none; padding: 20px">
+                                            </div>
+                                            <div id="unassignedSentCounter" style="display: none;">
+                                            </div>
+                                            <div id="unassignedSent" style="display: none; padding: 20px">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="outer-container">
+                                <div class="inner-container">
+                                    <div class="element" id="firstWindowResults">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12" id="devWindow" style="display: none;">
+                        <div class="col-lg-12" id="devFirstWindow">
+                            <div class="col-lg-6">
+                                <div class="outer-container">
+                                    <div class="inner-container">
+                                        <div class="element" id="devFirstWindowNumbers">
+                                            <div id="devNewNumbers">
+                                                <h3 id="devNewCounterDisplay"></h3>
+                                                <div id="devAdamNewCounter" style="display: none;">
+                                                </div>
+                                                <div id="devAdamNew" style="display: none; padding: 20px">
+                                                </div>
+                                                <div id="devBryanNewCounter" style="display: none;">
+                                                </div>
+                                                <div id="devBryanNew" style="display: none; padding: 20px">
+                                                </div>
+                                                <div id="devUnassignedNewCounter" style="display: none;">
+                                                </div>
+                                                <div id="devUnassignedNew" style="display: none; padding: 20px">
+                                                </div>
+                                            </div>
+                                            <div id="devOpenNumbers">
+                                                <h3 id="devOpenCounterDisplay"></h3>
+                                                <div id="devAdamOpenCounter" style="display: none;">
+                                                </div>
+                                                <div id="devAdamOpen" style="display: none; padding: 20px">
+                                                </div>
+                                                <div id="devBryanOpenCounter" style="display: none;">
+                                                </div>
+                                                <div id="devBryanOpen" style="display: none; padding: 20px">
+                                                </div>
+                                                <div id="devUnassignedOpenCounter" style="display: none;">
+                                                </div>
+                                                <div id="devUnassignedOpen" style="display: none; padding: 20px">
+                                                </div>
+                                            </div>
+                                            <div id="devResolvedNumbers">
+                                                <h3 id="devResolvedCounterDisplay"></h3>
+                                                <div id="devAdamResolvedCounter" style="display: none;">
+                                                </div>
+                                                <div id="devAdamResolved" style="display: none; padding: 20px">
+                                                </div>
+                                                <div id="devBryanResolvedCounter" style="display: none;">
+                                                </div>
+                                                <div id="devBryanResolved" style="display: none; padding: 20px">
+                                                </div>
+                                                <div id="devUnassignedResolvedCounter" style="display: none;">
+                                                </div>
+                                                <div id="devUnassignedResolved" style="display: none; padding: 20px">
+                                                </div>
+
+                                            </div>
+
+                                            <div id="devPendingNumbers">
+                                                <h3 id="devPendingCounterDisplay"></h3>
+
+                                                <div id="devAdamPendingCounter" style="display: none;">
+                                                </div>
+                                                <div id="devAdamPending" style="display: none; padding: 20px">
+                                                </div>
+                                                <div id="devBryanPendingCounter" style="display: none;">
+                                                </div>
+                                                <div id="devBryanPending" style="display: none; padding: 20px">
+                                                </div>
+                                                <div id="devUnassignedPendingCounter" style="display: none;">
+                                                </div>
+                                                <div id="devUnassignedPending" style="display: none; padding: 20px">
+                                                </div>
+
+                                            </div>
+
+                                            <div id="devWorkingNumbers">
+                                                <h3 id="devWorkingCounterDisplay"></h3>
+                                                <div id="devAdamWorkingCounter" style="display: none;">
+                                                </div>
+                                                <div id="devAdamWorking" style="display: none; padding: 20px">
+                                                </div>
+                                                <div id="devBryanWorkingCounter" style="display: none;">
+                                                </div>
+                                                <div id="devBryanWorking" style="display: none; padding: 20px">
+                                                </div>
+                                                <div id="devUnassignedWorkingCounter" style="display: none;">
+                                                </div>
+                                                <div id="devUnassignedWorking" style="display: none; padding: 20px">
+                                                </div>
+
+                                            </div>
+
+                                            <div id="devSentNumbers">
+                                                <h3 id="devSentCounterDisplay"></h3>
+                                                <div id="devAdamSentCounter" style="display: none;">
+                                                </div>
+                                                <div id="devAdamSent" style="display: none; padding: 20px">
+                                                </div>
+                                                <div id="devBryanSentCounter" style="display: none;">
+                                                </div>
+                                                <div id="devBryanSent" style="display: none; padding: 20px">
+                                                </div>
+                                                <div id="devUnassignedSentCounter" style="display: none;">
+                                                </div>
+                                                <div id="devUnassignedSent" style="display: none; padding: 20px">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="outer-container">
+                                    <div class="inner-container">
+                                        <div class="element" id="devFirstWindowResults" style="padding-top:15px">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12" id="helpdeskWindow" style="display: none;">
+                        <div class="col-lg-12" id="helpdeskFirstWindow">
+                            <div class="col-lg-5">
+                                <div class="outer-container">
+                                    <div class="inner-container">
+                                        <div class="element" id="helpdeskFirstWindowNumbers">
+                                            <div id="helpdeskNewNumbers">
+                                                <h3 id="helpdeskNewCounterDisplay"></h3>
+                                                <div id="helpdeskBrendaNewCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskBrendaNew" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskJakeNewCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskJakeNew" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskTylerNewCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskTylerNew" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskUnassignedNewCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskUnassignedNew" style="display: none; padding-top: 20px">
+                                                </div>
+                                            </div>
+
+                                            <div id="helpdeskOpenNumbers">
+                                                <h3 id="helpdeskOpenCounterDisplay"></h3>
+                                                <div id="helpdeskBrendaOpenCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskBrendaOpen" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskJakeOpenCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskJakeOpen" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskTylerOpenCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskTylerOpen" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskUnassignedOpenCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskUnassignedOpen" style="display: none; padding-top: 20px">
+                                                </div>
+                                            </div>
+
+                                            <div id="helpdeskResolvedNumbers">
+                                                <h3 id="helpdeskResolvedCounterDisplay"></h3>
+                                                <div id="helpdeskBrendaResolvedCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskBrendaResolved" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskJakeResolvedCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskJakeResolved" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskTylerResolvedCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskTylerResolved" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskUnassignedResolvedCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskUnassignedResolved" style="display: none; padding-top: 20px">
+                                                </div>
+
+                                            </div>
+
+                                            <div id="helpdeskPendingNumbers">
+                                                <h3 id="helpdeskPendingCounterDisplay"></h3>
+
+                                                <div id="helpdeskBrendaPendingCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskBrendaPending" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskJakePendingCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskJakePending" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskTylerPendingCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskTylerPending" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskUnassignedPendingCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskUnassignedPending" style="display: none; padding-top: 20px">
+                                                </div>
+
+                                            </div>
+
+                                            <div id="helpdeskWorkingNumbers">
+                                                <h3 id="helpdeskWorkingCounterDisplay"></h3>
+                                                <div id="helpdeskBrendaWorkingCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskBrendaWorking" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskJakeWorkingCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskJakeWorking" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskTylerWorkingCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskTylerWorking" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskUnassignedWorkingCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskUnassignedWorking" style="display: none; padding-top: 20px">
+                                                </div>
+
+                                            </div>
+
+                                            <div id="helpdeskSentNumbers">
+                                                <h3 id="helpdeskSentCounterDisplay"></h3>
+                                                <div id="helpdeskBrendaSentCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskBrendaSent" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskJakeSentCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskJakeSent" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskTylerSentCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskTylerSent" style="display: none; padding-top: 20px">
+                                                </div>
+                                                <div id="helpdeskUnassignedSentCounter" style="display: none;">
+                                                </div>
+                                                <div id="helpdeskUnassignedSent" style="display: none; padding-top: 20px">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="outer-container">
+                                    <div class="inner-container">
+                                        <div class="element" id="helpdeskFirstWindowResults" style="padding-top:15px">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12" id="forDateMainWindow" style="display: none;">
+                        <div class="col-lg-12" id="forDateLeftWindow">
+                            <div class="col-lg-5">
+                                <div class="outer-container">
+                                    <div class="inner-container">
+                                        <div class="element">
+                                            <div style="display:none" id="forDateAlerts"></div>
+                                            <div>
+                                                <div id="brendaForDate">
+                                                </div>
+                                                <table style="display: none; margin: 10px" id="brendaForDateTable" class="table table-hover">
+                                                    <thead style="font-weight: bold">
+                                                        <tr>
+                                                            <td style="width: 25%">Ticket Number</td>
+                                                            <td style="width: 75%">Subject</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="brendaTableResults">
+                                                        <tr></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div>
+                                                <div id="jakeForDate">
+                                                </div>
+                                                <table style="display: none; margin: 10px" id="jakeForDateTable" class="table table-hover">
+                                                    <thead style="font-weight: bold">
+                                                        <tr>
+                                                            <td style="width: 25%">Ticket Number</td>
+                                                            <td style="width: 75%">Subject</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="jakeTableResults">
+                                                        <tr></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div>
+                                                <div id="tylerForDate">
+                                                </div>
+                                                <table style="display: none; text-align: left; margin: 10px" id="tylerForDateTable" class="table table-hover">
+                                                    <thead style="font-weight: bold">
+                                                        <tr>
+                                                            <td style="width: 25%">Ticket Number</td>
+                                                            <td style="width: 75%">Subject</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tylerTableResults">
+                                                        <tr></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div>
+                                                <div id="hdUnassignedForDate">
+                                                </div>
+                                                <table style="display: none; text-align: left; margin: 10px" id="hdUnassignedForDateTable" class="table table-hover">
+                                                    <thead style="font-weight: bold">
+                                                        <tr>
+                                                            <td style="width: 25%">Ticket Number</td>
+                                                            <td style="width: 75%">Subject</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="hdUnassignedTableResults">
+                                                        <tr></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div>
+                                                <div id="adamForDate">
+                                                </div>
+                                                <table style="display: none; text-align: left; margin: 10px" id="adamForDateTable" class="table table-hover">
+                                                    <thead style="font-weight: bold">
+                                                        <tr>
+                                                            <td style="width: 25%">Ticket Number</td>
+                                                            <td style="width: 75%">Subject</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="adamTableResults">
+                                                        <tr></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div>
+                                                <div id="bryanForDate">
+                                                </div>
+                                                <table style="display: none; text-align: left; margin: 10px" id="bryanForDateTable" class="table table-hover">
+                                                    <thead style="font-weight: bold">
+                                                        <tr>
+                                                            <td style="width: 25%">Ticket Number</td>
+                                                            <td style="width: 75%">Subject</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="bryanTableResults">
+                                                        <tr></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div>
+                                                <div id="devUnassignedForDate">
+                                                </div>
+                                                <table style="display: none; text-align: left; margin: 10px" id="devUnassignedForDateTable" class="table table-hover">
+                                                    <thead style="font-weight: bold">
+                                                        <tr>
+                                                            <td style="width: 25%">Ticket Number</td>
+                                                            <td style="width: 75%">Subject</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="devUnassignedTableResults">
+                                                        <tr></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="outer-container">
+                                    <div class="inner-container">
+                                        <div class="element" id="forDateRightWindow" style="padding-top:15px">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12" id="fromDateMainWindow" style="display: none;">
+                        <div class="col-lg-12" id="fromDateLeftWindow">
+                            <div class="col-lg-5">
+                                <button id="fromDateBackButton" style="display: none; height:20px; width:150px; padding:0;" class="btn btn-primary"><span class="glyphicon glyphicon-menu-up"></span> Show All <span class="glyphicon glyphicon-menu-up"></span></button>
+
+                                <div class="outer-container">
+                                    <div class="inner-container">
+                                        <div class="element">
+
+                                            <div id="brendaFromInfo">
+                                                <div>
+                                                    <div style="cursor:pointer" id="brendaFromDateLabel">
+
+                                                    </div>
+                                                    <div id="brendaFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="brendaFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="brendaFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="brendaAvFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="brendaAvFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="brendaAvFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="brendaCitrixFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="brendaCitrixFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="brendaCitrixFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="brendaOtherFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="brendaOtherFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="brendaOtherFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="brendaPasswordsFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="brendaPasswordsFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="brendaPasswordsFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="brendaImageFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="brendaImageFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="brendaImageFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="brendaNetworkingFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="brendaNetworkingFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="brendaNetworkingFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="brendaNewUserFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="brendaNewUserFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="brendaNewUserFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="brendaPcFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="brendaPcFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="brendaPcFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="brendaPrinterFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="brendaPrinterFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="brendaPrinterFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <div>
+                                                    <div id="brendaProfileFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="brendaProfileFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="brendaProfileFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="brendaWebsitesFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="brendaWebsitesFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="brendaWebsitesFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="brendaBlankFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="brendaBlankFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="brendaBlankFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div id="jakeFromInfo">
+                                                <div>
+                                                    <div style="cursor:pointer" id="jakeFromDateLabel">
+
+                                                    </div>
+                                                    <div id="jakeFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="jakeFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="jakeFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="jakeAvFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="jakeAvFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="jakeAvFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="jakeCitrixFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="jakeCitrixFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="jakeCitrixFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="jakeOtherFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="jakeOtherFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="jakeOtherFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="jakePasswordsFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="jakePasswordsFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="jakePasswordsFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="jakeImageFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="jakeImageFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="jakeImageFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="jakeNetworkingFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="jakeNetworkingFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="jakeNetworkingFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="jakeNewUserFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="jakeNewUserFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="jakeNewUserFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="jakePcFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="jakePcFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="jakePcFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="jakePrinterFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="jakePrinterFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="jakePrinterFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <div>
+                                                    <div id="jakeProfileFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="jakeProfileFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="jakeProfileFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="jakeWebsitesFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="jakeWebsitesFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="jakeWebsitesFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="jakeBlankFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="jakeBlankFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="jakeBlankFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div id="tylerFromInfo">
+                                                <div>
+                                                    <div style="cursor:pointer" id="tylerFromDateLabel">
+
+                                                    </div>
+                                                    <div id="tylerFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="tylerFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tylerFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="tylerAvFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="tylerAvFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tylerAvFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="tylerCitrixFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="tylerCitrixFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tylerCitrixFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="tylerOtherFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="tylerOtherFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tylerOtherFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="tylerPasswordsFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="tylerPasswordsFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tylerPasswordsFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="tylerImageFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="tylerImageFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tylerImageFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="tylerNetworkingFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="tylerNetworkingFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tylerNetworkingFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="tylerNewUserFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="tylerNewUserFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tylerNewUserFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="tylerPcFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="tylerPcFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tylerPcFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="tylerPrinterFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="tylerPrinterFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tylerPrinterFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <div>
+                                                    <div id="tylerProfileFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="tylerProfileFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tylerProfileFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="tylerWebsitesFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="tylerWebsitesFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tylerWebsitesFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="tylerBlankFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="tylerBlankFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tylerBlankFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                            <div id="adamFromInfo">
+                                                <div>
+                                                    <div style="cursor:pointer" id="adamFromDateLabel">
+
+                                                    </div>
+                                                    <div id="adamFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="adamFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="adamFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="adamAvFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="adamAvFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="adamAvFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="adamCitrixFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="adamCitrixFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="adamCitrixFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="adamOtherFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="adamOtherFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="adamOtherFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="adamPasswordsFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="adamPasswordsFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="adamPasswordsFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="adamImageFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="adamImageFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="adamImageFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="adamNetworkingFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="adamNetworkingFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="adamNetworkingFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="adamNewUserFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="adamNewUserFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="adamNewUserFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="adamPcFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="adamPcFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="adamPcFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="adamPrinterFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="adamPrinterFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="adamPrinterFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <div>
+                                                    <div id="adamProfileFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="adamProfileFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="adamProfileFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="adamWebsitesFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="adamWebsitesFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="adamWebsitesFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div id="adamBlankFromDate">
+                                                    </div>
+                                                    <table style="display: none; margin: 10px" id="adamBlankFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="adamBlankFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+
+                                            <div id="bryanFromInfo">
+                                                <div>
+                                                    <div style="cursor:pointer" id="bryanFromDateLabel">
+
+                                                    </div>
+                                                    <div id="bryanFromDate">
+                                                    </div>
+                                                    <table style="display: none; text-align: left; margin: 10px" id="bryanFromDateTable" class="table table-hover">
+                                                        <thead style="font-weight: bold">
+                                                            <tr>
+                                                                <td style="width: 25%">Ticket Number</td>
+                                                                <td style="width: 75%">Subject</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="bryanFromTableResults">
+                                                            <tr></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+
+
+
+
+
+                                            <div>
+                                                <div id="hdUnassignedFromDate">
+                                                </div>
+                                                <table style="display: none; text-align: left; margin: 10px" id="hdUnassignedFromDateTable" class="table table-hover">
+                                                    <thead style="font-weight: bold">
+                                                        <tr>
+                                                            <td style="width: 25%">Ticket Number</td>
+                                                            <td style="width: 75%">Subject</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="hdUnassignedFromTableResults">
+                                                        <tr></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div>
+                                                <div id="devUnassignedFromDate">
+                                                </div>
+                                                <table style="display: none; text-align: left; margin: 10px" id="devUnassignedFromDateTable" class="table table-hover">
+                                                    <thead style="font-weight: bold">
+                                                        <tr>
+                                                            <td style="width: 25%">Ticket Number</td>
+                                                            <td style="width: 75%">Subject</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="devUnassignedFromTableResults">
+                                                        <tr></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="outer-container">
+                                    <div class="inner-container">
+                                        <div class="element" id="fromDateRightWindow" style="padding-top: 15px">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/hd.js"></script>
+    <script src="js/forDate.js"></script>
+    <script src="js/brendaFromDate.js"></script>
+    <script src="js/jakeFromDate.js"></script>
+    <script src="js/tylerFromDate.js"></script>
+    <script src="js/adamFromDate.js"></script>
+    <script src="js/bryanFromDate.js"></script>
+    <!-- Menu toggle script -->
+    <script>
+
+        
+        function fromJumpBack() {
+            $("#jumpBackFromDate").hide();
+            $("#forDateList").hide();
+            $("#jumpBackForDate").hide();
+            $("#forDateMainWindow").hide();
+            $("#firstWindow").show();
+            $("#devFirstWindow").show();
+            $("#helpdeskFirstWindow").show();
+            $("#overViewList").show();
+            $("#helpdeskList").show();
+            $("#devTeamList").show();
+        }
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("menuDisplayed");
+            $("#menu-span").toggleClass("glyphicon-menu-hamburger glyphicon-menu-left");
+        });
+    </script>
+<script type="text/javascript" src="http://assets.freshdesk.com/widget/freshwidget.js"></script>
+<script type="text/javascript">
+	FreshWidget.init("", {"queryString": "&widgetType=popup", "utf8": "✓", "widgetType": "popup", "buttonType": "text", "buttonText": "Support", "buttonColor": "white", "buttonBg": "#003a70", "alignment": "2", "offset": "90px", "formHeight": "500px", "url": "https://weathershield.freshdesk.com"} );
+</script>
+</body>
+</html>

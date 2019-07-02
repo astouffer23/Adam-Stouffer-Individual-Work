@@ -1,0 +1,46 @@
+
+
+.topList {
+    margin-right: 20px;
+    color: white;
+}
+
+#horizontal-list {
+    list-style: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#horizontal-list li {
+    display: inline;
+}
+
+a {
+    color: blue;
+}
+
+a:hover {
+    color:rgb(135, 209, 135)
+}
+
+.element, .outer-container {
+    height: 850px;
+}
+ 
+.outer-container {
+    position: relative;
+    overflow-y: hidden;
+}
+ 
+.inner-container {
+    position: absolute;
+    left: 0;
+    overflow-y: scroll;
+}
+ 
+.inner-container::-webkit-scrollbar {
+    display: none;
+}
+
+#freshwidget-button{
+	height:20px
+}
