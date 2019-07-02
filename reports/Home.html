@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<!--hd group id = 19000048255-->
+<!-- saved from url=(0014)about:internet -->
+<head>
+    <title>Helpdesk Reports</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/site.css" rel="stylesheet">
+</head>
+<body>
+    <div class="col-md-12" style="text-align: center; font-weight: bold; padding: 10px; font-size: 18px; background-color: rgb(100, 100, 101)">
+        <div class="col-md-3">
+            <a href="https://www.weathershield.com" style="display: block; color:white" target="_blank">Weathershield</a>
+        </div>
+        <div class="col-md-3">
+            <a href="https://weathershield.freshdesk.com/a/" style="display: block; color:white" target="_blank">Freshdesk</a>
+        </div>
+        <div class="col-md-3">
+            <a href="http://wsonesource.com" style="display: block; color:white" target="_blank">WS OneSource</a>
+        </div>
+        <div class="col-md-3">
+            <a href="https://weathershieldmfginc.sharepoint.com" style="display: block; color:white" target="_blank">Intranet</a>
+        </div>
+    </div>
+
+    <div class="col-md-12" style="text-align: center; font-weight: bold; padding: 10px; font-size: 18px; background-color: rgb(100, 100, 101)">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-6"><button id="refreshButton" class="btn btn-primary" style="width: 100%">Refresh</button></div>
+                <div class="col-md-6"><button id="hideButton" class="btn btn-warning" style="width: 100%">Hide</button></div>
+            </div>
+            
+            
+        </div>
+        <div class="col-md-3">
+            <input id="dateSearch" type="date" class="form-control" />
+        </div>
+        <div class="col-md-2"><button id="singleDateSubmit" class="btn btn-block btn-primary">For Date</button></div>
+        <div class="col-md-2"><button id="fromDateSubmit" class="btn btn-block btn-primary">From Date</button></div>
+
+    </div>
+
+    <div id="numbersBar" class="col-md-12" style="text-align: center; font-weight: bold; padding: 10px; font-size: 18px; background-color: rgb(100, 100, 101); color: lightblue; height:50px">
+        <div id="newView" class="col-md-2" onmouseover="(this.style = 'color:white; text-shadow: 0 0 3px white; cursor:pointer; font-size:20px')" onmouseout="(this.style = 'color:ligthblue; text-shadow: 0 0 0')">
+            New
+        </div>
+        <div id="openView" class="col-md-2" onmouseover="(this.style = 'color:white; text-shadow: 0 0 3px white; cursor:pointer; font-size:20px')" onmouseout="(this.style = 'color:ligthblue; text-shadow: 0 0 0')">
+            Open
+        </div>
+        <div id="pendingView" class="col-md-2" onmouseover="(this.style = 'color:white; text-shadow: 0 0 3px white; cursor:pointer; font-size:20px')" onmouseout="(this.style = 'color:ligthblue; text-shadow: 0 0 0')">
+            Pending
+        </div>
+        <div id="sentView" class="col-md-3" onmouseover="(this.style = 'color:white; text-shadow: 0 0 3px white; cursor:pointer; font-size:20px')" onmouseout="(this.style = 'color:ligthblue; text-shadow: 0 0 0')">
+            Sent to Customer
+        </div>
+        <div id="resolvedView" class="col-md-3" onmouseover="(this.style = 'color:white; text-shadow: 0 0 3px white; cursor:pointer; font-size:20px')" onmouseout="(this.style = 'color:ligthblue; text-shadow: 0 0 0')">
+            Resolved
+        </div>
+    </div>
+    <div id="refreshDiv" class="col-md-12" style="display: none; background-color: rgb(167, 239, 156); color: green; font-size: 18px; text-align: center; font-weight: bold; padding: 5px">
+        Refreshing...
+    </div>
+    <div id="refreshedDiv" class="col-md-12" style="display: none; background-color: rgb(167, 239, 156); color: green; font-size: 18px; text-align: center; font-weight: bold; padding: 5px">
+        Refreshed
+    </div>
+    <div id="errorsDiv" class="col-md-12" style="display: none; background-color: rgb(245, 174, 174); color: red; font-size: 18px; text-align: center; font-weight: bold; padding: 5px">
+        Errors
+    </div>
+<div id="confirmDiv" class="col-md-12" style="display: none; background-color: rgb(245, 174, 174); color: red; font-size: 18px; text-align: center; font-weight: bold; padding: 5px; cursor:pointer">
+    
+</div>
+<div id="allTickets" style="padding: 30px;">
+    <div class="row">
+        <div class="col-md-5" id="allTicketsLeftCol" style="background-color: aliceblue; font-size: 14px; font-weight: bold; height: 750px; overflow-y: scroll">
+            <div id="allTicketsNew" style="padding-top: 10px">
+                <p id ="newNumber">New</p>
+            </div>
+            <div id="allTicketsOpen" style="padding-top: 10px">
+                <p id ="openNumber">Open</p>
+            </div>
+            <div id="allTicketsPending" style="padding-top: 10px">
+                <p id="pendingNumber">Pending</p>
+            </div>
+            <div id="allTicketsSentTo" style="padding-top: 10px">
+                <p id ="sentToCustomerNumber">Sent to Customer</p>
+            </div>
+            <div id="allTicketsResolved" style="padding-top: 10px"><hr style="color: black; background-color: black; border-color: black;"/>
+                <p id="resolvedNumber">Resolved Today</p>
+                <div id="totalResolved">
+                    Total
+                </div>
+                <div id="brendaResolvedTodayHome">
+                    Brenda
+                </div>
+                <div id="jakeResolvedToday">
+                    Jake
+                </div>
+                <div id="tylerResolvedToday">
+                    Tyler
+                </div>
+                <div id="unassignedResolved">
+                    Unassigned
+                </div>
+                <div id="resolvedList">
+                    <div id="jakeResolvedHome"><br/>Jake<br/>
+
+                    </div>
+                    <div id="brendaResolvedHome"><br />Brenda<br />
+
+                    </div>
+                    <div id="tylerResolvedHome"><br />Tyler<br />
+
+                    </div>
+                    <div id="unassignedResolvedHome"><br />Unassigned<br />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: aliceblue; overflow-y: scroll; height: 750px" class="col-md-7" id="allTicketsRightCol">
+        </div>
+    </div>
+</div>
+<div id="openTickets" style="padding: 30px; display:none">
+    <div class="row">
+        <div id="openTicketsViewLeft" class="col-md-5" style="font-size: 14px; font-weight: bold; height: 750px; overflow-y: scroll; padding-top: 20px">
+            <p id ="openSummary">Open</p>
+            <div id="brendaOpenDiv">
+                <hr/><p id="brendaOpenCounter" style="color:blue">Brenda</p>
+            </div>
+            <div id="jakeOpenDiv">
+                <hr/><br/><p id="jakeOpenCounter" style="color:red">Jake</p>
+
+            </div>
+            <div id="tylerOpenDiv">
+                <hr/><br/><p id="tylerOpenCounter" style="color:orange">Tyler</p>
+
+            </div>
+            <div id="unassignedOpenDiv">
+                <hr/><br/><p id="unassignedOpenCounter" style="color:purple">Unassigned</p>
+
+            </div>
+        </div>
+        <div id="openTicketsViewRight" class="col-md-7" style="padding-top: 20px; height: 750px; overflow-y: scroll">
+        </div>
+
+    </div>
+</div>
+    <div id="pendingTickets" style="padding: 30px; display:none">
+        <div class="row">
+            <div id="pendingTicketsViewLeft" class="col-md-5" style="font-size: 14px; font-weight: bold; height: 750px; overflow-y: scroll; padding-top: 20px">
+                <p id="pendingCounter">Pending</p>
+                <div id="brendaPendingDiv">
+                    <hr /><p id="brendaPendingCounter" style="color:blue">Brenda</p>
+                </div>
+                <div id="jakePendingDiv">
+                    <hr /><br /><p id="jakePendingCounter" style="color:red">Jake</p>
+
+                </div>
+                <div id="tylerPendingDiv">
+                    <hr /><br /><p id="tylerPendingCounter" style="color:orange">Tyler</p>
+
+                </div>
+                <div id="unassignedPendingDiv">
+                    <hr /><br /><p id="unassignedPendingCounter" style="color:purple">Unassigned</p>
+
+                </div>
+            </div>
+            <div id="pendingTicketsViewRight" class="col-md-7" style="padding-top: 20px; height: 750px; overflow-y: scroll">
+
+            </div>
+
+        </div>
+    </div>
+<div id="sentToTickets" style="padding: 30px; display:none">
+    <div class="row">
+        <div id="sentToTicketsViewLeft" class="col-md-5" style="font-size: 14px; font-weight: bold; height: 750px; overflow-y: scroll; padding-top: 20px">
+            <p id ="sentCounter">Sent to Customer</p>
+            <div id="brendaSentToDiv">
+                <hr /><p id="brendaSentCounter" style="color:blue">Brenda</p>
+            </div>
+            <div id="jakeSentToDiv">
+                <hr /><br /><p id="jakeSentCounter" style="color:red">Jake</p>
+
+            </div>
+            <div id="tylerSentToDiv">
+                <hr /><br /><p id="tylerSentCounter" style="color:orange">Tyler</p>
+
+            </div>
+            <div id="unassignedSentToDiv">
+                <hr /><br /><p id="unassignedSentCounter" style="color:purple">Unassigned</p>
+
+            </div>
+        </div>
+        <div id="sentTicketsViewRight" class="col-md-7" style="padding-top: 20px; height: 750px; overflow-y: scroll">
+
+        </div>
+
+    </div>
+</div>
+<div id="newTickets" style="padding: 30px; display:none">
+    <div class="row">
+        <div id="newTicketsViewLeft" class="col-md-5" style="font-size: 14px; font-weight: bold; height: 750px; overflow-y: scroll; padding-top: 20px">
+            <p id ="newNumberView">New</p>
+            <div id="brendaNewDiv">
+                <hr /><p id="brendaNewCounter"  style="color:blue">Brenda</p>
+            </div>
+            <div id="jakeNewDiv">
+                <hr /><br /><p id="jakeNewCounter" style="color:red">Jake</p>
+
+            </div>
+            <div id="tylerNewDiv">
+                <hr /><br /><p id="tylerNewCounter" style="color:orange">Tyler</p>
+
+            </div>
+            <div id="unassignedNewDiv">
+                <hr /><br /><p id="unassignedNewCounter"  style="color:purple">Unassigned</p>
+
+            </div>
+        </div>
+        <div id="newTicketsViewRight" class="col-md-7" style="padding-top: 20px; height: 750px; overflow-y: scroll">
+
+        </div>
+
+    </div>
+</div>
+
+<div id="resolvedTickets" style="padding: 30px; display:none">
+    <div class="row">
+        <div id="resolvedTicketsViewLeft" class="col-md-5" style="font-size: 14px; font-weight: bold; height: 750px; overflow-y: scroll; padding-top: 20px">
+            <p id ="resSummary">Resolved: </p><hr/>
+            <div id="brendaResolvedDiv">
+            </div>
+            <div id="jakeResolvedDiv">
+
+            </div>
+            <div id="tylerResolvedDiv">
+
+            </div>
+            <div id="unassignedResolvedDiv">
+
+            </div>
+        </div>
+        <div id="resolvedTicketsViewRight" class="col-md-7" style="padding-top: 20px; height: 750px; overflow-y: scroll">
+
+        </div>
+
+    </div>
+</div>
+
+<div id="resolvedByDate" style="display: none;">
+    <div class="row">
+        <div class="col-md-5" style="height: 780px; overflow-y: scroll; padding-top: 20px">
+            <table id="brendaTable" class="table table-hover">
+                <thead>
+                <tr style="color:blue">
+                    <th style="width: 20%">Brenda</th>
+                    <th>Ticket Number</th>
+                    <th style="width: 60%">Subject</th>
+                </tr>
+                </thead>
+                <tbody id="brendaResolvedContentRows">
+
+                </tbody>
+            </table>
+            <table id="jakeTable" class="table table-hover">
+                <thead>
+                <tr style="color:red">
+                    <th style="width: 20%">Jake</th>
+                    <th>Ticket Number</th>
+                    <th style="width: 60%">Subject</th>
+                </tr>
+                </thead>
+                <tbody id="jakeResolvedContentRows"></tbody>
+            </table>
+            <table id="tylerTable" class="table table-hover">
+                <thead>
+                <tr style="color:orange">
+                    <th style="width: 20%">Tyler</th>
+                    <th>Ticket Number</th>
+                    <th style="width: 60%">Subject</th>
+                </tr>
+                </thead>
+                <tbody id="tylerResolvedContentRows"></tbody>
+            </table>
+            <table id="unassignedTable" class="table table-hover">
+                <thead>
+                <tr style="color:purple">
+                    <th style="width: 20%">Unassigned</th>
+                    <th>Ticket Number</th>
+                    <th style="width: 60%">Subject</th>
+                </tr>
+                </thead>
+                <tbody id="unassignedResolvedContentRows"></tbody>
+            </table>
+
+        </div>
+        <div id="resolvedSummary" class="col-md-7" style="background-color: aliceblue; height: 780px; padding-top: 20px; padding-right: 20px">
+            <table id="resolvedSummaryTable1" class="table table-hover">
+                <thead>
+                <tr>
+                    <th style="width:33%; text-align:center; font-size: 20px">Antivirus</th>
+                    <th style="width:33%; text-align:center; font-size: 20px">Applications</th>
+                    <th style="width:33%; text-align:center; font-size: 20px">Citrix</th>
+                </tr>
+                </thead>
+                <tbody id="resolvedSummaryRows1" style="font-size: 20px"></tbody>
+            </table>
+            <table id="resolvedSummaryTable2" class="table table-hover">
+                <thead>
+                <tr>
+                    <th style="width:33%; text-align:center; font-size: 20px">Image/Migration</th>
+                    <th style="width:33%; text-align:center; font-size: 20px">Networking</th>
+                    <th style="width:33%; text-align:center; font-size: 20px">New User Setup</th>
+
+                </tr>
+                </thead>
+                <tbody id="resolvedSummaryRows2" style="font-size: 20px"></tbody>
+            </table>
+            <table id="resolvedSummaryTable3" class="table table-hover">
+                <thead>
+                <tr>
+                    <th style="width:33%; text-align:center; font-size: 20px">Passwords</th>
+                    <th style="width:33%; text-align:center; font-size: 20px">PC-Phone-Tablet</th>
+                    <th style="width:33%; text-align:center; font-size: 20px">Printer-Scanner</th>
+
+                </tr>
+                </thead>
+                <tbody id="resolvedSummaryRows3" style="font-size: 20px"></tbody>
+            </table>
+            <table id="resolvedSummaryTable4" class="table table-hover">
+                <thead>
+                <tr>
+                    <th style="width:33%; text-align:center; font-size: 20px">Profile Change</th>
+                    <th style="width:33%; text-align:center; font-size: 20px">Websites</th>
+                    <th style="width:33%; text-align:center; font-size: 20px">Other</th>
+                </tr>
+                </thead>
+                <tbody id="resolvedSummaryRows4" style="font-size: 20px"></tbody>
+            </table>
+            <div style="font-weight: bold; text-align: center; font-size: 20px" id="totalResCount"></div>
+        </div>
+        <div id="brendaResolvedSummary" class="col-md-7" style="background-color: aliceblue; padding-top: 20px; height: 780px; overflow-y: scroll; padding-right: 20px; display: none">
+            <div class="col-md-12">
+                <p style="font-size: 20px; font-weight: bold; color: blue" id="brendaTotalResolved"></p>
+                <table id="brendaResolvedSummaryTable1" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th style="width: 33%; text-align: center; font-size: 20px">Antivirus</th>
+                        <th style="width: 33%; text-align: center; font-size: 20px">Applications</th>
+                        <th style="width: 33%; text-align: center; font-size: 20px">Citrix</th>
+                    </tr>
+                    </thead>
+                    <tbody id="brendaResolvedSummaryRows1" style="font-size: 20px"></tbody>
+                </table>
+                <table id="brendaResolvedSummaryTable2" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th style="width: 33%; text-align: center; font-size: 20px">Image/Migration</th>
+                        <th style="width: 33%; text-align: center; font-size: 20px">Networking</th>
+                        <th style="width: 33%; text-align: center; font-size: 20px">New User Setup</th>
+                    </tr>
+                    </thead>
+                    <tbody id="brendaResolvedSummaryRows2" style="font-size: 20px"></tbody>
+                </table>
+                <table id="brendaResolvedSummaryTable3" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th style="width: 33%; text-align: center; font-size: 20px">Passwords</th>
+                        <th style="width: 33%; text-align: center; font-size: 20px">PC-Phone-Tablet</th>
+                        <th style="width: 33%; text-align: center; font-size: 20px">Printer-Scanner</th>
+
+                    </tr>
+                    </thead>
+                    <tbody id="brendaResolvedSummaryRows3" style="font-size: 20px"></tbody>
+                </table>
+                <table id="brendaResolvedSummaryTable4" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th style="width: 33%; text-align: center; font-size: 20px">Profile Change</th>
+                        <th style="width: 33%; text-align: center; font-size: 20px">Websites</th>
+                        <th style="width: 33%; text-align: center; font-size: 20px">Other</th>
+                    </tr>
+                    </thead>
+                    <tbody id="brendaResolvedSummaryRows4" style="font-size: 20px"></tbody>
+                </table>
+            </div>
+            
+            <div class="col-md-12">
+                <p style="font-size: 20px; font-weight: bold; color: red" id="jakeTotalResolved"></p>
+                <table id="jakeResolvedSummaryTable1" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Antivirus</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Applications</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Citrix</th>
+                        </tr>
+                    </thead>
+                    <tbody id="jakeResolvedSummaryRows1" style="font-size: 20px"></tbody>
+                </table>
+                <table id="jakeResolvedSummaryTable2" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Image/Migration</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Networking</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">New User Setup</th>
+                        </tr>
+                    </thead>
+                    <tbody id="jakeResolvedSummaryRows2" style="font-size: 20px"></tbody>
+                </table>
+                <table id="jakeResolvedSummaryTable3" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Passwords</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">PC-Phone-Tablet</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Printer-Scanner</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="jakeResolvedSummaryRows3" style="font-size: 20px"></tbody>
+                </table>
+                <table id="jakeResolvedSummaryTable4" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Profile Change</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Websites</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Other</th>
+                        </tr>
+                    </thead>
+                    <tbody id="jakeResolvedSummaryRows4" style="font-size: 20px"></tbody>
+                </table>
+            </div>
+            
+            <div class="col-md-12">
+                <p style="font-size: 20px; font-weight: bold; color: orange" id="tylerTotalResolved"></p>
+                <table id="tylerResolvedSummaryTable1" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Antivirus</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Applications</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Citrix</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tylerResolvedSummaryRows1" style="font-size: 20px"></tbody>
+                </table>
+                <table id="tylerResolvedSummaryTable2" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Image/Migration</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Networking</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">New User Setup</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tylerResolvedSummaryRows2" style="font-size: 20px"></tbody>
+                </table>
+                <table id="tylerResolvedSummaryTable3" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Passwords</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">PC-Phone-Tablet</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Printer-Scanner</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tylerResolvedSummaryRows3" style="font-size: 20px"></tbody>
+                </table>
+                <table id="tylerResolvedSummaryTable4" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Profile Change</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Websites</th>
+                            <th style="width: 33%; text-align: center; font-size: 20px">Other</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tylerResolvedSummaryRows4" style="font-size: 20px"></tbody>
+                </table>
+            </div>
+
+            
+
+
+
+        </div>
+        <div id="individualResolvedSummary" class="col-md-7" style="background-color: aliceblue; display: none; height: 780px; padding-top: 20px; overflow-y: scroll">
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>
+<script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/hd.js"></script>
+<script type="text/javascript" src="js/search.js"></script>
+<script type="text/javascript" src="js/brendaSearch.js"></script>
+<script type="text/javascript" src="js/jakeSearch.js"></script>
+<script type="text/javascript" src="js/tylerSearch.js"></script>
+
+
