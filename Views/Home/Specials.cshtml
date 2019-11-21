@@ -1,0 +1,20 @@
+﻿@model IEnumerable<CarsLibrary.Models.Tables.CarSpecials>
+@{
+    ViewBag.Title = "Specials";
+}
+
+<h2>Specials</h2>
+@foreach (var special in Model)
+{
+    <div style="margin-top: 20px; font-size: 15px; font-weight: bold; padding: 20px; border-radius: 5px" class="col-md-12">
+        <div class="row">
+            <div class="col-md-2">
+                <img src="/Images/dollar.png" style="max-height: 80%; max-width: 80%" />
+            </div>
+            <div class="col-md-8">
+                @special.SpecialTitle<br /><hr />
+                @special.SpecialDescription
+            </div>
+        </div>
+    </div>
+}

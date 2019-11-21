@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "home")</li>
+                    <li>@Html.ActionLink("New Inventory", "new", "inventory")</li>
+                    <li>@Html.ActionLink("Used Inventory", "used", "inventory")</li>
+                    <li>@Html.ActionLink("Specials", "specials", "home")</li>
+                    <li>@Html.ActionLink("Contact", "contact", "home")</li>
+                    @if (User.IsInRole("sales"))
+                    {
+                        <li class="navbar-right">
+                            @Html.ActionLink("Sales", "index", "sales")
+                        </li>
+                    }
+                        
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li id ="adminChoice" style="font-size: 14px; color: #999999; padding-top: 15px; padding-bottom: 15px">Admin</li>
+                    }
+
+                    @using CarsLibrary.UI.Models
+                    @using Microsoft.AspNet.Identity
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+            <div id="adminRow" class="col-md-12" style="color: white; display:none;">
+                <ul class="nav navbar-nav" style="margin: 0 auto;">
+                    <li>@Html.ActionLink("Vehicles", "vehicles", "admin")</li>
+                    <li>@Html.ActionLink("Add Vehicle", "addvehicle", "admin")</li>
+                    <li>@Html.ActionLink("Users", "users", "admin")</li>
+                    <li>@Html.ActionLink("Add User", "adduser", "admin")</li>
+                    <li>@Html.ActionLink("Specials", "specials", "admin")</li>
+                    <li>@Html.ActionLink("Makes", "makes", "admin")</li>
+                    <li>@Html.ActionLink("Models", "models", "admin")</li>
+                    <li>@Html.ActionLink("Reports", "index", "reports")</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        @*<hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>*@
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</html>

@@ -1,0 +1,153 @@
+﻿@using Microsoft.AspNet.Identity
+@model CarsLibrary.UI.Models.CarViewModel
+@{
+    ViewBag.Title = "editvehicle";
+}
+
+@using (Html.BeginForm("EditVehicles", "admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUpload" }))
+
+{
+    <h2 style="text-shadow: 0 4px 0 lightgray">Edit Vehicle</h2>
+    @Html.AntiForgeryToken()
+    <div style="margin-top: 30px">
+        @Html.HiddenFor(m => m.VehicleId)
+    </div>
+    <div id="alertBoxOnEditPage" class="row">
+        <div class="col-md-2" style="font-weight: bold; border: none; color: red; text-shadow: -3px 3px 1px lightblue">
+            @Html.ValidationMessageFor(m => m.UploadedFile)
+            @Html.ValidationMessageFor(m => m.CarYearString)
+            @Html.ValidationMessageFor(m => m.SalePrice)
+            @Html.ValidationMessageFor(m => m.Mileage)
+            @Html.ValidationMessageFor(m => m.Msrp)
+            @Html.ValidationMessageFor(m => m.Vin)
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Makes</label>
+                @Html.DropDownListFor(m => m.MakeId, Model.CarMake, new { @class = "form-control", tabindex = 6, @id="edit-pick-make", @onchange = "changeUpModels()"})
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Models</label>
+                @Html.DropDownListFor(m => m.ModelId, Model.CarModel, new { @class = "form-control", tabindex = 6 , @onclick = "changeUpModels()", @id = "edit-pick-model" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Type</label>
+                @Html.DropDownListFor(m => m.CarTypeId, Model.CarType, new { @class = "form-control", tabindex = 6 })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Body Style</label>
+                @Html.DropDownListFor(m => m.CarBodyStyleId, Model.CarBodyStyle, new { @class = "form-control", tabindex = 6 })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Year</label>
+                @Html.TextBoxFor(m => m.CarYearString, Model.CarYearString, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Transmission</label>
+                @Html.DropDownListFor(m => m.CarTransmissionId, Model.CarTranmission, new { @class = "form-control", tabindex = 6 })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Exterior Color</label>
+                @Html.DropDownListFor(m => m.CarExteriorColorId, Model.CarExteriorColors, new { @class = "form-control", tabindex = 6 })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Interior Color</label>
+            <div class="form-group">
+                @Html.DropDownListFor(m => m.CarInteriorColorId, Model.CarInteriorColors, new { @class = "form-control", tabindex = 6 })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Mileage</label>
+                @Html.TextBoxFor(m => m.Mileage, Model.Mileage, new { @class = "form-control", @placeholder = "Mileage", @type = "number" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Vin</label>
+                @Html.TextBoxFor(m => m.Vin, Model.Vin, new { @class = "form-control", @placeholder = "Vin", @type = "number" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>MSRP</label>
+                @Html.TextBoxFor(m => m.Msrp, Model.Msrp, new { @class = "form-control", @placeholder = "MSRP", @type = "number" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Sale Price</label>
+                @Html.TextBoxFor(m => m.SalePrice, Model.SalePrice, new { @class = "form-control", @placeholder = "Sale Price", @type = "number" })
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @value = Model.Description, @style = "max-width:59%; width:59%; height: 250px; resize:none" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <img width="250" height="250" src="~/Images/@Model.ImageFileLocation" />
+        </div>
+        <div class="col-md-12" style="margin-top:20px">
+            @Html.TextBoxFor(m => m.UploadedFile, new { type = "file", @class = "btn btn-default col-md-3", @style = "padding-right:0px" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="margin-top:10px">
+            @if (!@Model.IsFeatured)
+            {
+                <div class="col-md-12" style="margin-top: 10px">
+                    @Html.TextBoxFor(m => m.IsFeatured, new { @type = "checkbox", @id = "checkbox", @checked = "checked" })@Html.LabelFor(m => m.IsFeatured, "Featured")
+
+                </div>
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.IsFeatured, new { @type = "checkbox", @id = "checkbox" })@Html.LabelFor(m => m.IsFeatured, "Feature This Vehicle")
+            }
+        </div>
+
+
+
+    </div>
+    <div id="editSaveButton2">
+        <input class="btn btn-default" style="margin-top: 20px" type="submit" value="Save" onclick=saveEdit() />
+    </div>
+    
+
+
+}
+@section Scripts {
+
+    @Scripts.Render("~/bundles/")
+}

@@ -1,0 +1,67 @@
+﻿@using Microsoft.Ajax.Utilities
+@using Microsoft.AspNet.Identity
+@model IEnumerable<CarsLibrary.UI.Models.CarMakeViewModel>
+
+@{
+    ViewBag.Title = "makes";
+}
+
+<h2 style="text-shadow: 0 4px 0 lightgray">Makes</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <textarea style="display: none" id="makeUserId">@User.Identity.GetUserId().ToString()</textarea>
+    <textarea style="display:none" id="makeUserEmail">@User.Identity.GetUserName().ToString()</textarea>
+    <div class="col-md-12" style="background-color: #eeeeee; border-radius: 5px; box-shadow: 0 0 10px black; ">
+        <div class="row" style="padding:20px">
+            <div class="col-md-2" style="text-align: center;">
+                @Html.LabelFor(m => m.GetEnumerator().Current.MakeName, "Car Make", new { @class = "control-label", @style = "padding-left:0" })
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.GetEnumerator().Current.MakeName, new {placeholder = "Names must not start with a space", @class = "form-control", @style = "display:inline", @id = "carMakeValue"})
+
+            </div>
+            <div class="col-md-5">
+                <input id="saveMake" type="submit" class="btn btn-default" value="Save"/>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="makes-validation-summary-success alert-success" style="text-align: center; margin: 5px; width: 30%; font-size: 18px; font-weight: bold; border-radius: 25px"></div>
+    <div class="makes-validation-summary-errors alert-danger" style="text-align: center; margin: 5px; width: 30%; font-size: 18px; font-weight: bold; border-radius: 25px"></div>
+
+    <div class="col-md-5" style="padding-top: 10px">
+        <table style="box-shadow: 0 0 10px black" class="table table-hover table-striped table-responsive">
+            <thead>
+                <tr style="font-weight: bolder">
+                    <td>Make</td>
+                    <td style="text-align: center">Date Added</td>
+                    <td>User</td>
+                </tr>
+            </thead>
+            <tbody id="makeTableBody">
+                @foreach (var make in Model)
+                {
+                    foreach (var x in make.CarMakeName)
+                    {
+                        <tr>
+                            <td>@x.CarMakeName</td>
+                            <td style="text-align: center">@x.DateAdded.Month/@x.DateAdded.Day/@x.DateAdded.Year</td>
+                            <td>@x.Email</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

@@ -1,0 +1,88 @@
+﻿@model CarsLibrary.UI.Models.ReportsInventoryViewModel
+@{
+    ViewBag.Title = "inventory";
+}
+
+<h2 style="text-shadow: 2px 0 5px white">Inventory Report</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <h3 style="text-shadow: 2px 0 5px white">New Vehicles</h3>
+        <table id="newInventoryReportTable" class="table table-responsive table-bordered" style="background-color: white; box-shadow: 0 0 5px black">
+            <tr style="background-color:cadetblue; color: white">
+                <th width="10%" style="text-align: center">Year</th>
+                <th width="20%">Make</th>
+                <th width="20%">Model</th>
+                <th width="10%" style="text-align: center">Count</th>
+                <th width="20%">Stock Value</th>
+            </tr>
+            <tbody id="contentRows">
+            @foreach (var newCar in Model.NewInventory)
+            {
+                <tr>
+                    @if (@newCar.StockVal > 100000)
+                    {
+                        <td class="alert-danger" style="font-weight: bold; text-align: center">@newCar.Year</td>
+                        <td class="alert-danger" style="font-weight: bold">@newCar.Make</td>
+                        <td class="alert-danger" style="font-weight: bold">@newCar.Model</td>
+                        <td class="alert-danger" style="font-weight: bold; text-align: center">@newCar.Count</td>
+                        <td class="alert-danger" style="font-weight: bold">@newCar.StockVal.ToString("C0")</td>
+                    }
+                    else
+                    {
+                        <td style="text-align: center">@newCar.Year</td>
+                        <td>@newCar.Make</td>
+                        <td>@newCar.Model</td>
+                        <td style=" text-align: center">@newCar.Count</td>
+                        <td>@newCar.StockVal.ToString("C0")</td>
+                    }
+
+
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<div class="row">
+    <div class="col-md-6">
+        <h3 style="text-shadow: 2px 0 5px white">Used Vehicles</h3>
+        <table id="usedInventoryReportTable" class="table table-responsive table-bordered" style="background-color: white; box-shadow: 0 0 5px black">
+            <tr style="background-color: cadetblue; color: white">
+                <th width="10%" style="text-align: center">Year</th>
+                <th width="20%">Make</th>
+                <th width="20%">Model</th>
+                <th width="10%" style="text-align: center">Count</th>
+                <th width="20%">Stock Value</th>
+            </tr>
+            <tbody id="contentRows">
+            @foreach (var usedCar in Model.UsedInventory)
+            {
+                <tr>
+                    
+                    @if (@usedCar.StockVal > 100000)
+                    {
+                        <td class="alert-danger" style="font-weight: bold; text-align: center">@usedCar.Year</td>
+                        <td class="alert-danger" style="font-weight: bold">@usedCar.Make</td>
+                        <td class="alert-danger" style="font-weight: bold">@usedCar.Model</td>
+                        <td class="alert-danger" style="font-weight: bold; text-align: center">@usedCar.Count</td>
+                        <td class="alert-danger" style="font-weight: bold">@usedCar.StockVal.ToString("C0")</td>
+                    }
+                    else
+                    {
+                        <td style="text-align: center">@usedCar.Year</td>
+                        <td>@usedCar.Make</td>
+                        <td>@usedCar.Model</td>
+                        <td style=" text-align: center">@usedCar.Count</td>
+                        <td>@usedCar.StockVal.ToString("C0")</td>
+                    }
+
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<CarsLibrary.UI.Models.HomePageViewModel>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<hr />
+<div style="box-shadow: 0 0 10px black; margin-top: 20px; margin-bottom: 0px; padding: 3px; background-color: cadetblue" class="jumbotron">
+    <div class="ism-slider" data-transition_type="zoom" data-play_type="loop" id="my-slider"data-buttons="false" >
+        <ol>
+            @foreach (var special in Model)
+            {
+                foreach (var item in special.AllSpecials)
+                {
+                    <li onclick="location.href = '@Url.Action("specials", "home")'" style="text-align: left; cursor: pointer;">
+                            <div style="font-size: 20px; font-weight: bold; color: black; padding-left: 50px; width: 80%; text-shadow: 0 0 3px lightgray">
+                                @item.SpecialTitle<br/>
+                            </div><hr style="width: 60%; margin-left:0px"/>
+                            <div style=" font-size: 16px; padding-left: 100px; padding-right: 20px; color:black ">
+                                @item.SpecialDescription
+                            </div>
+                    </li>
+                }
+            }
+        </ol>
+    </div>
+</div>
+
+<hr/>
+<div class="row">
+    <div class="container">
+        <h2>Featured Vehicles</h2>
+        <div class="row" style="text-align: center; width: 100%; margin: 10px;">
+
+            @foreach (var item in Model)
+            {
+                foreach (var car in item.AllCars)
+                {
+                    var priceString = @car.CarSalePrice.ToString("C0");
+                    <div class="col-md-2 col-sm-4 favoritePadding" style="cursor: pointer; height: 200px; font-weight: bold" onclick="location.href='@Url.Action("details", "inventory", new {id = car.ListingId })'">
+                        <img src="@("/Images/"+car.CarImageFileLocation)" height="120" ; width="140" /><br />
+                        @car.CarYear @car.CarMakeName @car.CarModelName<br />@priceString<br />
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+
+</div>

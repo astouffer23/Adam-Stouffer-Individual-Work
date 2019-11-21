@@ -1,0 +1,53 @@
+﻿@model CarsLibrary.UI.Models.SalesViewModel
+@{
+    ViewBag.Title = "sales";
+}
+
+<h2 style="text-shadow: 0 4px 0 lightgray">Sales Reports</h2>
+
+
+<div class="row">
+    <div class="col-md-8" style="box-shadow: 0 0 3px black; background-color: lightgray; border-radius: 25px">
+        <h5>Filters</h5>
+        <div class="col-md-4">
+            @Html.DropDownListFor(u => u.User, Model.User, "select", new { @class = "form-control", @id = "userSelect" })
+        </div>
+        <div class="col-md-4">
+            <input id="salesFromDate" type="number" min="2000" max="2100" maxlength="4" class="form-control" placeholder="Year Value" />
+        </div>
+        <div class="col-md-4">
+            <input id="salesToDate" type="number" min="2000" max="2100" maxlength="4" class="form-control" placeholder="Year Value" />
+        </div>
+        <div class="col-md-4" style="margin-top: 15px; margin-bottom: 15px">
+            <input id="salesReportSearch" type="submit" value="Search" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+<h3>Search Results</h3>
+<div id="salesSearchResultsDiv" style="display: none">
+    <div class="col-md-5">
+        <table id="salesSearchTable" class="table table-responsive" style="background-color: white; box-shadow: 0 0 5px black">
+            <thead>
+            <tr style="font-weight: bold">
+                <td>
+                    User
+                </td>
+                <td>
+                    Total Sales
+                </td>
+                <td>
+                    Total Vehicles
+                </td>
+            </tr>
+            </thead>
+            <tbody id="salesTableResults">
+            
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

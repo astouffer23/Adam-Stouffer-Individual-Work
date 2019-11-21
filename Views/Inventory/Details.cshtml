@@ -1,0 +1,51 @@
+﻿@model CarsLibrary.Models.Queries.DetailsRequest
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Vehicle Details</h2>
+<div style="margin-top: 20px; font-size: 15px; font-weight: bold; padding: 20px" class="col-md-12">
+    <div class="row">
+        <div class="col-md-12">
+            @Model.CarYear @Model.CarMake @Model.CarModel<br />
+        </div>
+        <div align="center" class="col-md-2 col-sm-4 col-xs-12">
+            <img onclick="location.href='@Url.Action("contact", "home", new {vin = @Model.CarVin, carModel = @Model.CarModel, carMake = @Model.CarMake})'" style="cursor: pointer;padding-top: 15px" src="@("/Images/" + @Model.CarImageFileLocation)" height="150" ; width="150" alt="Picture of vehicle" />
+        </div>
+        <div class="col-md-10 col-sm-8 col-xs-12" style="padding-top: 10px">
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Body Style:</div>
+                <div class="col-xs-6 col-md-2 col-lg-2">@Model.CarBodyStyle</div>
+                <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Interior:</div>
+                <div class="col-xs-6 col-md-2 col-lg-2">@Model.CarInteriorColor</div>
+                <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Sale Price:</div>
+                <div class="col-xs-6 col-md-2 col-lg-2">@Model.CarSalePrice.ToString("C0")</div>
+            </div>
+            <div class="row" style="padding-top: 10px">
+                <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Trans:</div>
+                <div class="col-xs-6 col-md-2 col-lg-2">@Model.CarTransmissionSelection</div>
+                <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Mileage:</div>
+                <div class="col-xs-6 col-md-2 col-lg-2">@Model.CarMileage</div>
+                <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">MSRP:</div>
+                <div class="col-xs-6 col-md-2 col-lg-2">@Model.CarMfgPrice.ToString("C0")</div>
+            </div>
+            <div class="row" style="padding-top: 10px">
+                <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Color:</div>
+                <div class="col-xs-6 col-md-2 col-lg-2">@Model.CarExteriorColor</div>
+                <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">VIN #:</div>
+                <div class="col-xs-6 col-md-2 col-lg-2">@Model.CarVin</div>
+                <div class="col-xs-6 col-md-2 col-lg-2"></div>
+            </div>
+            <div>
+                <br />
+                <div style="padding-left:40px" class="col-xs-12 col-md-2 col-lg-2">Description:</div>
+                <div style="padding-left: 3px; margin-left: 0" class="col-xs-12 col-md-10 col-lg-10">
+                    @Model.CarDescription
+            </div>
+        </div>
+        <div align="right" class="col-md-12">
+            <button class="btn btn-success" style="margin-top: 5px" onclick="location.href='@Url.Action("contact", "home", new {vin = @Model.CarVin, carModel = @Model.CarModel, carMake = @Model.CarMake})'">Contact Us!</button>
+        </div>
+    </div>
+</div>
+</div>

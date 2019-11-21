@@ -1,0 +1,88 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<CarsLibrary.UI.Models.CarModelViewModel>
+@{
+    ViewBag.Title = "models";
+}
+@using (Html.BeginForm("Models", "Admin", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+{
+    @Html.AntiForgeryToken()
+    
+
+    <h2 style="text-shadow: 0 4px 0 lightgray">Models</h2>
+<textarea style="display: none" id="modelUserId">@User.Identity.GetUserId().ToString()</textarea>
+<textarea style="display: none" id="modelUserEmail">@User.Identity.GetUserName().ToString()</textarea>
+    <div style="background-color: #eeeeee; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px black">
+        <div class="col-md-12">
+            
+            @*<label style="padding-right: 10px;">New Model</label>*@
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.LabelFor(m => m.GetEnumerator().Current.AllModels, "New Model", new { @class = "control-label", @style = "padding-left:0" })
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(m => m.GetEnumerator().Current.AllModels, new {placeholder = "Select associated model", @class = "form-control", @style = "display:inline", @id = "newModelName"})
+                    
+                    @*<input id="newModelName" class="form-control" style="font-weight: bold; padding-left: 10px; padding-right: 10px; padding-top: 5px;
+                    padding-bottom: 10px; box-shadow: 0 0 3px black;" type="text">*@
+                </div>
+                <div class="col-md-5">
+                    @Html.LabelFor(m => m.GetEnumerator().Current.AllMakes, "Make", new { @class = "control-label", @style = "padding-left:0" })
+                    <select class="form-control" style="display: inline; margin-left: 20px; box-shadow: 0 0 3px black">
+                        @foreach (var carMake in Model)
+                        {
+                            foreach (var x in carMake.AllMakes)
+                            {
+                                <option value="@x.CarMakeId" class="form-control makeDropDownList">@x.CarMakeName</option>
+                            }
+                        }
+                    </select>
+                    <input id="saveModel" type="submit" class="btn btn-primary" value="Submit" style="margin-left: 10px"/>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="model-validation-summary-success alert-success" style="text-align: center; margin: 5px; width: 30%; font-size: 18px; font-weight: bold"></div>
+    <div class="model-validation-summary-errors alert-danger" style="text-align: center; margin: 5px; width: 30%; font-size: 18px; font-weight: bold"></div>
+    <div class="col-md-6" style="padding-top: 10px">
+        <table style="box-shadow: 0 0 10px black" id="modelTable" class="table table-hover table-striped table-responsive">
+            <thead>
+            <tr style="font-weight: bolder">
+                <td>Make</td>
+                <td>Model</td>
+                <td>Date Added</td>
+                <td>User</td>
+            </tr>
+            </thead>
+            <tbody id="modelTableBody">
+                @foreach (var carModel in Model)
+                {
+                    foreach (var x in carModel.AllModels)
+                    {
+                        foreach (var y in carModel.AllMakes)
+                        {
+                            if (y.CarMakeId == x.CarMakeId)
+                            {
+                                <tr>
+                                    <td>@y.CarMakeName</td>
+                                    <td>@x.CarModelName</td>
+                                    <td>@x.DateAdded.ToShortDateString()</td>
+                                    <td>@x.Id</td>
+                                </tr>
+                            }
+
+                        }
+                    }
+
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,56 @@
+﻿@model CarsLibrary.UI.Models.UserViewModel
+@{
+    ViewBag.Title = "edituser";
+}
+
+<h2 style="text-shadow: 0 4px 0 lightgray">Edit User</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div style="padding: 10px;box-shadow: 0 0 5px black" class="col-md-8">
+        <div class="row">
+            <div class="col-md-6">
+                <label>First Name</label>
+                @Html.ValidationMessageFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @label=@Model.FirstName})
+            </div>
+            <div class="col-md-6">
+                <label>Last Name</label>
+                @Html.ValidationMessageFor(m => m.LastName)
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @label=@Model.LastName })
+            </div>
+            <div class="col-md-6">
+                <label>Email</label>
+                @Html.ValidationMessageFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control",@label=@Model.Email})
+            </div>
+            <div class="col-md-6">
+                <label>Role</label>
+                @Html.ValidationMessageFor(m => m.RoleSelect)
+                @Html.DropDownListFor(m => m.Role, (IEnumerable<SelectListItem>)ViewBag.Roles, @Model.Role, new { @class = "form-control" })
+            </div>
+            <div class="col-md-6">
+                <label for="psw">Password</label>
+                @Html.ValidationMessageFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password, new {@value=@Model.Password, @id = "psw", @class = "form-control", RegularExpressionAttribute = @"(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" })
+            </div>
+            <div class="col-md-6">
+                <label>Confirm Password</label>
+                @Html.ValidationMessageFor(m => m.PasswordConfirm)
+                @Html.PasswordFor(m => m.PasswordConfirm, new { @value = @Model.PasswordConfirm, @class = "form-control" })
+            </div>
+        </div>
+        <input style="margin-top:20px" type="submit" class="btn btn-primary" value="Save" />
+        <div style="box-shadow: 0 0 5px black" class="col-md-12" id="message">
+            <h3>Password must contain the following:</h3>
+            <h5 id="letter" class="invalid">A lowercase letter</h5>
+            <h5 id="capital" class="invalid">A <b>capital (uppercase)</b> letter</h5>
+            <h5 id="number" class="invalid">A <b>number</b></h5>
+            <h5 id="length" class="invalid">Minimum <b>8 characters</b></h5>
+        </div>
+    </div>
+
+}
+
+

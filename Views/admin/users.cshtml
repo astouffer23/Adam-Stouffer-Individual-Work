@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<CarsLibrary.Models.Queries.AdminListUsersRequest>
+@{
+    ViewBag.Title = "users";
+}
+<div class="col-md-12">
+    <h2>Users</h2>   
+    <a style="text-decoration: underline" href="adduser">Add a new user</a>
+</div>
+<div class="col-md-6" style="margin-top: 30px; box-shadow: 0 0 10px black">
+    <table class="table table-hover table-responsive" style="margin-top: 15px; background-color: white" >
+        <tr >
+            <th >
+                Last Name
+            </th>
+            <th >
+                First Name
+            </th>
+            <th >
+                Email
+            </th>
+            <th >
+                Role
+            </th>
+            <th >
+                
+            </th>
+        </tr>
+        @foreach (var x in Model)
+        {
+            <tr >
+                @if (@x.LastName == "McSuper" && @x.Role == "sales")
+                {
+
+                }
+                else
+                {
+                    <td >
+                        @x.LastName
+                    </td>
+                    <td >
+                        @x.FirstName
+                    </td>
+                    <td >
+                        @x.EmailAddress
+                    </td>
+                    <td >
+                        @x.Role
+                    </td>
+                    <td style="display: none">
+                        @x.UserId
+                    </td>
+                    <td><a href="editUser?userId=@x.UserId" >Edit User</a></td>
+                }
+
+            </tr>
+        }
+    </table>
+</div>
+
+
+

@@ -1,0 +1,337 @@
+﻿@using Microsoft.AspNet.Identity
+@model CarsLibrary.UI.Models.CarViewModel
+@{
+    ViewBag.Title = "addvehicle";
+
+}
+@using (Html.BeginForm("AddVehicle", "admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmUpload" }))
+{   
+    <h2 style="text-shadow: 0 4px 0 lightgray">Add Vehicle</h2>
+
+    <div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Make</label>
+                @Html.DropDownListFor(m => m.MakeName, Model.CarMake, new {@class = "form-control", @id = "add-pick-make", @onchange = "addPageChangeUpModels()" })
+                @Html.ValidationMessageFor(m => m.MakeName)
+            </div>
+        </div>
+        <div id="addVehicleMakeMessage" class="col-md-4" style="padding-top: 30px; font-weight: bold; font-size: 20px; color: red; text-shadow: 0 0 2px black ">
+            <p>Select A Make First</p>
+        </div>
+        <div id="addVehicleMakeSelection" class="col-md-4" style="display: none">
+            <div class="form-group">
+                <label>Model</label>
+                @Html.DropDownListFor(m => m.ModelVal, Model.CarModel, new {@class = "form-control", @id = "add-pick-model-filled",@onclick="testFunction()"})
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Type</label>
+                @Html.DropDownListFor(m => m.CarTypeName, Model.CarType, new {@class = "form-control"})
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Body Style</label>
+                @Html.DropDownListFor(m => m.CarBodyStyleName, Model.CarBodyStyle,  new {@class = "form-control"})
+                @Html.ValidationMessageFor(m => m.CarBodyStyleName)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Year</label>
+                @Html.TextBoxFor(m => m.CarYearString, new {@class = "form-control", @placeholder = "Year", @type = "number", @min = "2000",@max="2100" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Transmission</label>
+                @Html.DropDownListFor(m => m.Transmission, Model.CarTranmission,  new {@class = "form-control"})
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Exterior Color</label>
+                @Html.DropDownListFor(m => m.ExtColorName, Model.CarExteriorColors,  new {@class = "form-control"})
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Interior Color</label>
+                @Html.DropDownListFor(m => m.IntColorName, Model.CarInteriorColors,  new {@class = "form-control"})
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Mileage</label>
+                @Html.TextBoxFor(m => m.Mileage, "Mileage", new {@class = "form-control", @placeholder = "If you don't get this right, you're fired", @type = "number", @min = "0" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Vin</label>
+                @Html.TextBoxFor(m => m.Vin, "Vin", new {@class = "form-control", @placeholder = "look by the blinker fluid", @type = "text"})
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>MSRP</label>
+                @Html.TextBoxFor(m => m.Msrp, "MSRP", new {@class = "form-control", @placeholder = "Just the numbers folks", @type = "number", @min = "0" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Sale Price</label>
+                @Html.TextBoxFor(m => m.SalePrice, "SalePrice", new {@class = "form-control", @placeholder = "Just the numbers folks", @type = "number", @min = "0" })
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Description</label>
+                @Html.TextAreaFor(m => m.Description, new {@class = "form-control", @placeholder = "Description", @style = "max-width:59%; width:59%; height: 250px; resize:none"})
+            </div>
+        </div>
+        <div class="col-md-12">
+            @Html.TextBoxFor(m => m.UploadedFile, new { type = "file", @class = "btn btn-default col-md-3", @style = "padding-right:0px" })
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.CheckBoxFor(m => m.IsFeatured) Is Featured
+        </div>
+    </div>
+    <div id="hideSaveButton">
+       <h3 style="color:red; ">You must select a make to continue</h3>
+    </div>
+    <div id="showSaveButton" style="display: none">
+        <input class="btn btn-default" style="margin-top: 20px" type="submit" value="Save" />
+    </div>
+    
+}
+
+
+
+
+
+
+    @*<div class="form-group">
+        @Html.DropDownListFor(m => m.CarYearName, new SelectList(
+                items: new List<object>
+                {
+
+                    new {value = 2002, text = 2020},
+                    new {value = 2002, text = 2021},
+                    new {value = 2002, text = 2022},
+                    new {value = 2003, text = 2023},
+                    new {value = 2004, text = 2024},
+                    new {value = 2005, text = 2025},
+                    new {value = 2006, text = 2026},
+                    new {value = 2007, text = 2027},
+                    new {value = 2008, text = 2028},
+                    new {value = 2008, text = 2029},
+                    new {value = 2002, text = 2030},
+                    new {value = 2002, text = 2031},
+                    new {value = 2002, text = 2032},
+                    new {value = 2003, text = 2033},
+                    new {value = 2004, text = 2034},
+                    new {value = 2005, text = 2035},
+                    new {value = 2006, text = 2036},
+                    new {value = 2007, text = 2037},
+                    new {value = 2008, text = 2038},
+                    new {value = 2008, text = 2039},
+                },dataValueField: "value",dataTextField: "text", selectedValue: new { @style = "color:red" }
+       ))
+    </div>*@
+
+
+
+
+
+
+@*<textarea style="display: none" id="makeUserId">@User.Identity.GetUserId().ToString()</textarea>
+        <h2 style="text-shadow: 0 4px 3px lightgray ">Add Vehicle</h2>
+        <div id="showAddData"></div>
+        <div class="col-md-8" style="box-shadow: 0 0 25px lightgray; padding: 30px; background-color: white">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Make</label>
+                    <select onchange="addPageChangeUpModels(this.value)" id="add-pick-make" class="form-control" style="cursor: pointer; background-color: red; color: white;font-weight: bold">
+                        <option value="defaultMessage" disabled selected >Select a Make</option>
+                        @foreach (var x in Model)
+                        {
+                            foreach (var make in x.CarMake)
+                            {
+                                <option value="@make.CarMakeId">@make.CarMakeName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Model</label>
+                    <div style="color: red; font-weight: bold" id="pick-make-first"><span class="glyphicon glyphicon glyphicon-hand-left"></span> Select a make first</div>
+                    <select id="pick-model-filled" class="form-control" style="cursor: pointer; display: none"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Type</label>
+                    <select id="addCarType" class="form-control" style="cursor: pointer">
+                        @foreach (var x in Model)
+                        {
+                            foreach (var make in x.CarType)
+                            {
+                                <option value="@make.CarTypeId">@make.CarTypeName</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Body Style</label>
+                    <select id="addBodyStyle" class="form-control" style="cursor: pointer">
+                        @foreach (var x in Model)
+                        {
+                            foreach (var make in x.CarBodyStyle)
+                            {
+                                <option value="@make.CarBodyStyleId">@make.CarBodyStyleChoice</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Year</label>
+                    <input value="2018" class="form-control" type="number" min="2000" max="2099" step="1" id="addDate" style="cursor: pointer">
+                </div>
+                <div class="col-md-6">
+                    <label>Transmission</label>
+                    <select id="addTransId" class="form-control" style="cursor: pointer">
+                        @foreach (var x in Model)
+                        {
+                            foreach (var make in x.CarTranmission)
+                            {
+                                <option value="@make.CarTransmissionChoiceId">@make.CarTransmissionSelection</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Color</label>
+                    <select id="addExtColor" class="form-control" style="cursor: pointer">
+                        @foreach (var x in Model)
+                        {
+                            foreach (var make in x.CarExteriorColors)
+                            {
+                                <option value="@make.CarExteriorColorId">@make.CarExteriorColorSelected</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Interior</label>
+                    <select id="addIntColor" class="form-control" style="cursor: pointer">
+                        @foreach (var x in Model)
+                        {
+                            foreach (var make in x.CarInteriorColors)
+                            {
+                                <option value="@make.CarInteriorColorId">@make.CarInteriorColorSelected</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Mileage</label>
+                    <input min="0" id="addMiles" placeholder="Enter just the numbers" type="number" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label>Vin</label>
+                    <input id="addVin" placeholder="This can be found near the blinker fluid" type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>MSRP</label>
+                    <input id="addMsrp" min="0" placeholder="Enter just the numbers" type="number" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label>Sale Price</label>
+                    <input min="0" id="addSalePrice" placeholder="Enter just the numbers" type="number" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Description</label>
+                    <textarea id="addDescription" placeholder="enter a brief description that will catch the customers attention" class="form-control" style="max-width: 647px; width: 100%; height: 200px; resize: none"></textarea>
+                </div>
+            </div>
+            <input style="margin-top: 30px; margin-bottom: 20px" id="addFeatured" type="checkbox" name="Feature this vehicle" />
+            <label>Feature this vehicle</label><br />
+            <input class="btn btn-info" id="addImage" type="file" />
+            <div style="color: red; font-weight: bold" id="hideSaveButton">Save will appear when you have selected a make & model</div>
+            <div style="margin-top: 20px; font-weight: bold; width: 60%; border-radius: 5px" id="addErrors" class="alert-danger"></div><br />
+            <button style="box-shadow: 0 0 3px black; margin-top: 20px" id="addSaveButton" class="btn btn-primary col-md-3">Save</button>
+        </div><br />*@
+
+@section Scripts {
+    <script>
+        $(document).on("keydown", "input", function(e) {
+            if (e.which===13) e.preventDefault();
+        });
+
+        function addPageMatchingModels() {
+            var value = $("#add-pick-make").val();
+            $.ajax({
+                type: 'Get',
+                url: "/api/models/matching?makeId=" + value,
+                success: function (response) {
+                    $("#addVehicleMakeMessage").hide();
+                    $("#addVehicleMakeSelection").show();
+                    $("#add-pick-model-filled").empty();
+                    $("#").empty();
+                    if (response.length !== 0) {
+                        $.each(response,
+                            function (index, listing) {
+                                var html = '<option value="' + listing.CarModelId + '" id="editCarModel">' + listing.CarModelName + '</option>';
+                                $("#add-pick-model-filled").append(html).show();
+                                //$("#addSaveButton").show();
+                                //$("#hideSaveButton").hide();
+                                $("#add-pick-make option[value='defaultMessage'").remove();
+                            });
+                    }
+                },
+                error: function () {
+                    $(".makes-validation-summary-errors").append("You need to enter a Make name!");
+                }
+            });
+        }
+
+
+    </script>
+    
+    
+
+    @Scripts.Render("~/bundles/")
+
+}
+

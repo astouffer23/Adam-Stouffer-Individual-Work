@@ -1,0 +1,181 @@
+﻿@using Microsoft.Ajax.Utilities
+@model CarsLibrary.UI.Models.PurchaseViewModel
+@{
+    ViewBag.Title = "Purchase";
+}
+
+<h2>Purchase Vehicle</h2>
+
+@using (Html.BeginForm("purchase", "sales", FormMethod.Post, new { @class = "form-horizontal", role = "form"}))
+{
+    <div>
+
+    </div>
+    <div style="margin-top: 20px; font-size: 15px; font-weight: bold; padding: 20px" class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                @Model.CarYear @Model.CarMake @Model.CarModel<br />
+            </div>
+            <div align="center" class="col-md-2 col-sm-4 col-xs-12">
+                <img style="cursor: pointer;padding-top: 15px" src="@("/Images/" + @Model.ImageFileLocation)" height="150" ; width="150" alt="Picture of vehicle" />
+            </div>
+            <div class="col-md-10 col-sm-8 col-xs-12" style="padding-top: 10px">
+                <div class="row" style="padding-top: 10px;">
+                    <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Body Style:</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2">@Model.BodyStyle</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Interior:</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2">@Model.Interior</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Sale Price:</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2">@Model.SalePrice.ToString("C0")</div>
+                </div>
+                <div class="row" style="padding-top: 10px">
+                    <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Trans:</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2">@Model.Trans</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Mileage:</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2">@Model.Mileage</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">MSRP:</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2">@Model.Msrp.ToString("C0")</div>
+                </div>
+                <div class="row" style="padding-top: 10px">
+                    <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Color:</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2">@Model.Exterior</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">VIN #:</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2">@Model.Vin</div>
+                    <div class="col-xs-6 col-md-2 col-lg-2"></div>
+                </div>
+                <div>
+                    <br />
+                    <div style="padding-left:40px" class="col-xs-12 col-md-2 col-lg-2">Description:</div>
+                    <div style="padding-left: 3px; margin-left: 0" class="col-xs-12 col-md-10 col-lg-10">
+                        @Model.Description
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px">
+        @Html.HiddenFor(m => m.VehicleId)
+        @Html.HiddenFor(m => m.BodyStyleId)
+        @Html.HiddenFor(m => m.CarMakeId)
+        @Html.HiddenFor(m => m.PurchaseTypeId)
+        @Html.HiddenFor(m => m.CarTypeId)
+        @Html.HiddenFor(m => m.Vin)
+        @Html.HiddenFor(m => m.CarModelId)
+        @Html.HiddenFor(m => m.ExteriorColorId)
+        @Html.HiddenFor(m => m.InteriorColorId)
+        @Html.HiddenFor(m => m.StateId)
+        @Html.HiddenFor(m => m.UserId)
+        @Html.HiddenFor(m => m.TransmissionId)
+        @Html.HiddenFor(m => m.ImageFileLocation)
+        @Html.HiddenFor(m => m.Mileage)
+        @Html.HiddenFor(m => m.UserId)
+        @Html.HiddenFor(m => m.BodyStyle)
+        @Html.HiddenFor(m => m.CarMake)
+        @Html.HiddenFor(m => m.CarModel)
+        @Html.HiddenFor(m => m.CarYear)
+        @Html.HiddenFor(m => m.Description)
+        @Html.HiddenFor(m => m.SalePrice)
+        @Html.HiddenFor(m => m.Msrp)
+        @Html.HiddenFor(m => m.Details)
+        @Html.HiddenFor(m => m.Exterior)
+        @Html.HiddenFor(m => m.Interior)
+        @Html.HiddenFor(m => m.Trans)
+        @Html.HiddenFor(m => m.PurchaseTypeId)
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label>Name</label>
+                @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control", @placeholder = "Enter the customers' first and last name" })
+                <div style="color: white;">
+                    @Html.ValidationMessageFor(m => m.CustomerName)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>Phone</label>
+                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", @type = "number", @placeholder = "Primary Phone Number" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label>Email</label>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Customer's primary email address" })
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label>Street 1</label>
+                @Html.TextBoxFor(m => m.Street1, new { @class = "form-control", @placeholder = "Where do they live?" })
+                <div style="color:white">
+                    @Html.ValidationMessageFor(m => m.Street1)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>Street 2</label>
+                @Html.TextBoxFor(m => m.Street2, new { @class = "form-control", @placeholder = "Typically a PO or address extension" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label>City</label>
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control", @placeholder = "What city do they live in?" })
+                <div style="color:white">
+                    @Html.ValidationMessageFor(m => m.City)
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>State</label>
+                @Html.DropDownListFor(m => m.StateName, Model.States, new { @class = "form-control", @tabindex = 7})
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label>Zipcode</label>
+                @Html.TextBoxFor(m => m.ZipCode, new { @maxlength = "5", @class = "form-control", @placeholder = "Five digits" })
+                <div style="color:white">
+                    @Html.ValidationMessageFor(m => m.ZipCode)
+                </div>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div><hr />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <label>Purchase Price</label>
+                @Html.TextBoxFor(m => m.PurchasePrice, new { @class = "form-control", @type = "number", @placeholder = "Must be within 5% of Sale Price" })
+                <div style="color: white">
+                    @Html.ValidationMessageFor(m => m)
+                    @Html.ValidationMessageFor(m => m.PurchasePrice)  
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>Purchase Type</label>
+                @Html.DropDownListFor(m => m.PurchaseTypeName, Model.PurchaseType, new { @class = "form-control", @tabindex = 10 })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4" id="fakeSaveDiv">
+                <input class="btn btn-success" style="margin-top: 20px" id="fakeSaveButton" type="button" value="Save" onclick=switchSaveButtons() />
+            </div>
+            <div class="col-md-4">
+                <input id="realSave" class="btn btn-danger" style="margin-top: 20px; display:none" type="submit" value="Confirm Purchase" @*onclick=saveEdit()*@ />
+            </div>
+        </div>
+    </div>
+}

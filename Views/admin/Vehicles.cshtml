@@ -1,0 +1,120 @@
+﻿@model IEnumerable<CarsLibrary.Models.Queries.InventoryRequest>
+@{
+    ViewBag.Title = "Vehicles";
+}
+
+<h2>Admin</h2>
+<div style="margin-top: 25px; margin-bottom: 0px; padding-top: 0px; padding-bottom: 20px" class="jumbotron">
+    <div style="padding-top: 10px">Quick Search</div>
+    <div class="row" style="padding: 10px">
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="adminSearchBox" placeholder="Enter make, model, or year" style="display: inline">
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-2">Price</div>
+            <div class="col-md-5">
+                <select id="noMinPriceAdmin" class="btn btn-default" style="cursor: pointer;">
+                    <option selected>No Min</option>
+                    <option value="20000">$20,000</option>
+                    <option value="50000">$50,000</option>
+                    <option value="125000">$125,000</option>
+                    <option value="150000">$150,000</option>
+                    <option value="200000">$200,000</option>
+                    <option value="250000">$250,000</option>
+                    <option value="300000">$300,000</option>
+                    <option value="350000">$350,000</option>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <select id="noMaxPriceAdmin" class="btn btn-default" style="cursor: pointer;">
+                    <option selected>No Max</option>
+                    <option value="20000">$20,000</option>
+                    <option value="50000">$50,000</option>
+                    <option value="125000">$125,000</option>
+                    <option value="150000">$150,000</option>
+                    <option value="200000">$200,000</option>
+                    <option value="250000">$250,000</option>
+                    <option value="300000">$300,000</option>
+                    <option value="350000">$350,000</option>
+                </select>
+            </div>
+            <div class="col-md-12">
+                <button type="button" id="admin-search-button" class="btn btn-primary" style="cursor: pointer; margin: auto; width: 100%; display: block; margin-top: 60px;">Search</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-2">Year</div>
+            <div class="col-md-5">
+                <select id="noMinYearAdmin" class="btn btn-default" style="cursor: pointer;">
+                    <option selected>No Min</option>
+                    <option value="2000">2000</option>
+                    <option value="2005">2005</option>
+                    <option value="2010">2010</option>
+                    <option value="2015">2015</option>
+                    <option value="2020">2020</option>
+                    <option value="2025">2025</option>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <select id="noMaxYearAdmin" class="btn btn-default" style="cursor: pointer;">
+                    <option selected>No Max</option>
+                    <option value="2000">2000</option>
+                    <option value="2005">2005</option>
+                    <option value="2010">2010</option>
+                    <option value="2015">2015</option>
+                    <option value="2020">2020</option>
+                    <option value="2025">2025</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="adminReturns">
+    @foreach (var car in Model)
+    {
+        <div style="margin-top: 20px; font-size: 15px; font-weight: bold; padding: 20px" class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    @car.CarYear @car.CarMake @car.CarModel<br />
+                </div>
+
+                <div align="center" class="col-md-2 col-sm-4 col-xs-12">
+                    <img src="@("/Images/" + car.CarImageFileLocation)" height="150" ; width="150" alt="Picture of vehicle" style="padding-top: 15px; text-align: center" />
+                </div>
+                <div class="col-md-10 col-sm-8 col-xs-12" style="padding-top: 10px">
+                    <div class="row" style="padding-top: 10px;">
+                        <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Body Style:</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2">@car.CarBodyStyle</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Interior:</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2">@car.CarInteriorColor</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Sale Price:</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2">@car.CarSalePrice.ToString("C0")</div>
+                    </div>
+                    <div class="row" style="padding-top: 10px">
+                        <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Trans:</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2">@car.CarTransmissionOption</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Mileage:</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2">@car.CarMileage</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">MSRP:</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2">@car.CarMfgPrice.ToString("C0")</div>
+                    </div>
+                    <div class="row" style="padding-top: 10px">
+                        <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">Color:</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2">@car.CarExteriorColor</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2" style="text-align: right">VIN #:</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2">@car.CarVin</div>
+                        <div class="col-xs-6 col-md-2 col-lg-2"></div>
+                        <div class="col-xs-6 col-md-2 col-lg-2">
+                        <button class="btn btn-default" style="margin-top: 5px" onclick="location.href='@Url.Action("editvehicle", "admin", new {id = car.ListingId })'">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="adminSearchDiv" style="display: none; margin-top: 15px">
+
+
+</div>

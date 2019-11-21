@@ -1,0 +1,47 @@
+﻿@using System.Activities.Statements
+@using System.Web.Http.Routing
+@model IEnumerable<CarsLibrary.Models.Tables.CarSpecials>
+@{
+    ViewBag.Title = "specials";
+}
+
+<h2>Specials</h2>
+
+<div style="background-color: #eeeeee; padding: 20px; border-radius: 5px;">
+    <label for="specialTitle" >Title</label>
+    <input class="form-control" type="text" id="specialTitle" style="width:100%" /><br />
+    <label for="message">Message</label>
+    <textarea class="form-control" style="width: 100%; height: 300px; overflow-y: scroll;resize: none" name="specialMessage" id="specialMessage"></textarea><br />
+    <button id="saveSpecial" class="btn btn-primary" style="margin-top: 10px; padding-left: 20px; padding-right: 20px">Save</button>
+</div>
+ <div id="messageContainer"class="container alert-success" style="display: none; font-size: 25px; font-weight: bold;text-align: center">Success!</div>
+@foreach (var special in Model)
+{
+    <div style="margin-top: 20px; font-size: 15px; font-weight: bold; padding: 20px; border-radius: 5px" class="col-md-12">
+        <div class="row">
+            <div class="col-md-2">
+                <img src="/Images/dollar.png" style="max-height: 80%; max-width: 80%" />
+            </div>
+            <div class="col-md-8">
+                @special.SpecialTitle<br /><hr />
+                @special.SpecialDescription
+            </div>
+            <div class="col-md-2">
+                <button onclick="deleteSpecial('@special.SpecialId', '@special.SpecialTitle')" class="btn btn-danger" style="margin-top: 10px; margin-left: 65px; padding-left: 20px; padding-right: 20px">Delete</button>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function deleteSpecial(specialId, specialTitle) {
+        if (window.confirm("Are you sure you want to delete the " + specialTitle + " special?")) {
+            $.ajax({
+                type: 'Post',
+                url: "/api/admin/specials/" + specialId,
+                success: function () {
+                    window.location.reload();
+                }
+            });
+        }
+    }
+</script>

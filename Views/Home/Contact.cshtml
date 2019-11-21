@@ -1,0 +1,49 @@
+﻿@model CarsLibrary.Models.Queries.AddContactUs
+
+@{
+    ViewBag.Title = "Contact Us";
+}
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <label style="padding-top: 5px" for="name">Name</label><br />
+        <input class="form-control" style="box-shadow: 0 0 2px black; width:100%" type="text" name="name" id="name"><br>
+        <div id="contactNameError"></div>
+        <label style="padding-top: 5px" for="email">Email</label><br />
+        <input class="form-control" style="box-shadow: 0 0 2px black; width:100%" type="email" name="email" id="email"><br>
+        <div id="contactEmailError"></div>
+        <label style="padding-top: 5px" for="phoneContactUs">Phone</label><br />
+        <input class="form-control" style="box-shadow: 0 0 2px black; width:100%" type="tel" id="phoneContactUs"><br>
+        <div id="contactPhoneError"></div>
+        <label style="padding-top: 5px" for="contactUsMessage">Message</label><br />
+        <textarea class="form-control" style="box-shadow: 0 0 2px black; width: 100%; height: 400px; overflow-y: scroll; resize: none" name="message" id="contactUsMessage">@Model.ContactMessage</textarea><br/>
+        <button id="submitContact"type ="submit"class="btn btn-success"style="margin-top:5px">Submit</button>
+    </div>
+    <div class="col-md-8">
+        <iframe style="box-shadow: 0 0 2px black; margin-top: 50px; width: 100%; height: 600px"src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJvQ1wazpu3IARIgB8tfL1pVs&key=AIzaSyA3g5tmmfZTvkTNML4T0KLuo42Xdqa3rJU">
+        </iframe>
+        <address style="font-weight: bold">
+            202 S Coast Hwy<br />Oceanside, CA 92054<br/><br/>
+            Sales: (760) 722-9602<br/>
+            Service: (555) 867-5309
+        </address>
+    </div>
+    
+</div>
+
+@*<h3>@ViewBag.Message</h3>*@
+
+@*<h2>Contact Us</h2>*@
+
+@*<address>
+        One Microsoft Way<br />
+        Redmond, WA 98052-6399<br />
+        <abbr title="Phone">P:</abbr>
+        425.555.0100
+    </address>*@
+
+@*<address>
+        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    </address>*@
